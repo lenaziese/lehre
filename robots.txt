@@ -1,4 +1,0 @@
-Sitemap: http://lehramt.j-e-t.org/sitemap.xml
-
-User-agent: *
-Disallow: /redaxo

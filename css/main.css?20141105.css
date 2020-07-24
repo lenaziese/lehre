@@ -1,0 +1,520 @@
+/*
+Michael Ziem
+www.strombild.de
+08.2014
+*/
+
+/* FONTS */
+@font-face {
+    font-family: 'verlernen_14regular';
+    src: url('../font/verlernen_14-webfont.eot');
+    src: url('../font/verlernen_14-webfont.eot%3F') format('embedded-opentype'),
+         url('../font/verlernen_14-webfont.woff2.html') format('woff2'),
+         url('../font/verlernen_14-webfont.woff.html') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* GLOBAL */
+body {
+	margin: 0;
+	padding: 0;
+    font-size: 16px; /* -- Responsive -- */
+    line-height: 20px; /* -- Responsive -- */
+	font-family: Arial, sans-serif;
+    color: rgb(0, 0, 0);
+    -webkit-text-size-adjust: 100%;
+    background: rgb(255, 255, 255);
+}
+/* Template blau */
+body.template-8,
+body.invert {
+    background: rgb(0, 0, 255);
+    color: rgb(255, 255, 255);
+}
+
+a {
+    border: none;
+    outline: none;
+    text-decoration: none;
+    color: rgb(0, 0, 255);
+}
+a:hover {
+    color: rgb(0, 0, 0);
+}
+
+p {
+    margin: 0 0 1em 0;
+}
+
+hr {
+    display: block;
+    margin: 0 0 1em 0;
+    padding: 0;
+    height: 1px;
+    border: 0;
+}
+
+/* FONTS */
+h2,
+h3,
+h4 {
+	font-family: 'verlernen_14regular', Arial, sans-serif;
+	text-transform: uppercase;
+	font-weight: normal;
+    margin: 0 0 0.4em 0;
+}
+
+.slice.content {
+    margin: 0 0 2.2em 0;
+}
+
+/* ELEMENTS */
+
+header {
+	font-family: 'verlernen_14regular', Arial, sans-serif;
+	text-transform: uppercase;
+	display: block;
+	position: fixed;
+	width: 600px;
+	height: 600px;
+    left: -3px; /* -- Responsive -- */
+    bottom: 69px; /* -- Responsive -- */
+    -ms-transform: rotate(-90deg);
+    -webkit-transform: rotate(-90deg);
+    -moz-transform: rotate(-90deg);
+    -o-transform: rotate(-90deg);
+    transform: rotate(-90deg);
+    z-index: 10;
+}
+.no-csstransforms header {
+    -ms-filter: 'progid:DXImageTransform.Microsoft.BasicImage(rotation=3)';
+}
+header span {
+    display: block;
+}
+header h1 {
+	font-weight: normal;
+	color: rgb(0, 0, 255);
+    font-size: 30px; /* -- Responsive -- */
+    line-height: 40px; /* -- Responsive -- */
+}
+footer {
+	display: block;
+	position: relative; /* -- Responsive -- */
+    margin-left: 9px; /* -- Responsive -- */
+    margin-bottom: 22px; /* -- Responsive -- */
+    z-index: 20;
+}
+
+h2,
+h3,
+h4,
+header h1,
+.nav-sub,
+footer #nav-footer {
+    font-size: 16px; /* -- Responsive -- */
+    line-height: 20px; /* -- Responsive -- */
+}
+
+h2 {
+    letter-spacing: 0.031em;
+}
+
+nav {
+	display: block;
+	position: relative; /* -- Responsive -- */
+	margin-left: 52px; /* -- Responsive -- */
+    margin-top: 19px; /* -- Responsive -- */
+    z-index: 30;
+}
+nav #nav-main {
+    font-size: 36px; /* -- Responsive -- */
+    line-height: 47px; /* -- Responsive -- */
+    letter-spacing: 0; /* -- Responsive -- */
+}
+nav #nav-main li {
+	display: block;
+}
+
+/* Startseite */
+/*
+body.template-5 nav {
+	top: 40px;
+}
+*/
+body.template-5 nav #nav-main {
+    font-size: 45px; /* -- Responsive -- */
+    line-height: 59px; /* -- Responsive -- */
+}
+body.template-5 nav #nav-main li {
+	display: inline-block;
+}
+body.template-5 nav #nav-main li.template-8 a:hover {
+    color: rgb(255, 255, 255);
+}
+.nav {
+	font-family: 'verlernen_14regular', Arial, sans-serif;
+	text-transform: uppercase;
+	display: block;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.nav li {
+	display: inline-block;
+	white-space: nowrap;
+}
+.nav.nav-filter {
+    margin-bottom: 0.7em;
+}
+.nav.nav-filter li {
+    margin-bottom: 16px;
+}
+.nav li.current a {
+    color: rgb(0, 0, 0);
+}
+
+body.template-8 .nav li.current a {
+    color: rgb(255, 255, 255);
+}
+
+.nav-sub {
+    min-height: 47px;
+}
+.nav-sub li {
+    margin-right: 0.3em;
+}
+
+/* CONTENT */
+
+#content {
+    position: relative; /* -- Responsive -- */
+    width: auto; /* -- Responsive -- */
+	margin: 0 10px 0 52px; /* -- Responsive -- */
+    margin-top: 19px; /* -- Responsive -- */
+    z-index: 40;
+    /* zusätzlicher Leerraum zum Scrollen */
+    padding-bottom: 12em;
+}
+
+body.template-8 #content a {
+    color: rgb(255, 255, 255);
+}
+body.template-8 #content a:hover {
+    color: rgb(0, 0, 0);
+}
+
+article {
+}
+article p {
+    margin: 0 0 1em 0;
+}
+article ol,
+article ul {
+	display: block;
+	margin: 0 0 1em 0;
+	padding: 0 0 0 1em;
+}
+
+.thumbnail {
+}
+.thumbnail a {
+    position: relative;
+    display: inline-block;
+    margin: 0 12px 12px 0;
+    background: rgb(0, 0, 255);
+}
+.thumbnail a img {
+    vertical-align: bottom;
+}
+.thumbnail a:hover img {
+    opacity: 0.5 !important;
+}
+
+.fluidbox {
+	outline: none;
+}
+.hidden {
+	display: none;
+}
+.fluidbox-overlay {
+	cursor: pointer;
+	cursor: -webkit-zoom-out;
+	cursor: -moz-zoom-out;
+	opacity: 0;
+	position: fixed;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	transition: all .25s ease-in-out;
+}
+.fluidbox-wrap {
+	background-position: center center;
+	background-size: cover;
+	margin: 0 auto;
+	position: relative;
+	transition: all .25s ease-in-out;
+}
+.fluidbox-ghost {
+	background-size: cover;
+	background-position: center center;
+	position: absolute;
+	transition: all .25s ease-in-out;
+}
+.fluidbox-closed .fluidbox-ghost {
+    -webkit-transition-property: top, left, opacity, -webkit-transform;
+    -moz-transition-property: top, left, opacity, -moz-transform;
+    -o-transition-property: top, left, opacity, -o-transform;
+    transition-property: top, left, opacity, transform;
+    transition-delay: 0, 0, .25s, 0;
+}
+.fluidbox-closed .fluidbox-wrap img {
+    transition-property: opacity;
+    transition-delay: .25s;
+    transition-duration: 0s;
+}
+
+/* HELPERS */
+.clear {
+    clear: both;
+}
+.clearfix:before,
+.clearfix:after {
+    content: '';
+    display: table;
+}
+.clearfix:after {
+    clear: both;
+}
+.clearfix {
+    zoom: 1; /* For IE 6/7 (trigger hasLayout) */
+}
+img {
+    border: none;
+}
+
+/* CHAT */
+
+#nav-footer li:last-child a {
+    color: black;
+
+    -webkit-animation-name: blinker;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-iteration-count: infinite;
+
+    -moz-animation-name: blinker;
+    -moz-animation-duration: 1s;
+    -moz-animation-timing-function: linear;
+    -moz-animation-iteration-count: infinite;
+
+    animation-name: blinker;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+@-moz-keyframes blinker {  
+    0% { opacity: 1.0; }
+    50% { opacity: 0.0; }
+    100% { opacity: 1.0; }
+}
+
+@-webkit-keyframes blinker {  
+    0% { opacity: 1.0; }
+    50% { opacity: 0.0; }
+    100% { opacity: 1.0; }
+}
+
+@keyframes blinker {  
+    0% { opacity: 1.0; }
+    50% { opacity: 0.0; }
+    100% { opacity: 1.0; }
+}
+
+
+/* MEDIA QUERIES */
+
+@media only screen and (min-width: 600px) and (min-height: 484px) {
+    header {
+        left: 1px; /* -- Responsive -- */
+        bottom: 75px; /* -- Responsive -- */
+    }
+    footer {
+	    position: fixed; /* -- Responsive -- */
+	    margin: 0; /* -- Responsive -- */
+        left: 13px; /* -- Responsive -- */
+	    bottom: 10px; /* -- Responsive -- */
+    }
+    h2,
+    h3,
+    h4,
+    header h1,
+    .nav-sub,
+    footer #nav-footer {
+        font-size: 17px; /* -- Responsive -- */
+        line-height: 23px; /* -- Responsive -- */
+    }
+    nav {
+        position: fixed; /* -- Responsive -- */
+        left: 71px; /* -- Responsive -- */
+        top: 19px; /* -- Responsive -- */
+	    margin: 0; /* -- Responsive -- */
+    }
+    nav #nav-main {
+        font-size: 46px; /* -- Responsive -- */
+        line-height: 56px; /* -- Responsive -- */
+        letter-spacing: 0; /* -- Responsive -- */
+    }
+    body.template-5 nav #nav-main {
+        font-size: 57px; /* -- Responsive -- */
+        line-height: 70px; /* -- Responsive -- */
+    }
+    .nav-sub {
+        min-height: 56px;
+    }
+    #content {
+        position: absolute; /* -- Responsive -- */
+	    margin: 0; /* -- Responsive -- */
+        left: 348px; /* -- Responsive -- */
+        top: 23px; /* -- Responsive -- */
+        width: 240px; /* -- Responsive -- */
+    }
+}
+
+@media only screen and (min-width: 768px) and (min-height: 584px) {
+    header {
+        left: -1px; /* -- Responsive -- */
+        bottom: 90px; /* -- Responsive -- */
+    }
+    footer {
+        left: 15px; /* -- Responsive -- */
+	    bottom: 13px; /* -- Responsive -- */
+    }
+    h2,
+    h3,
+    h4,
+    header h1,
+    .nav-sub,
+    footer #nav-footer {
+        font-size: 21px; /* -- Responsive -- */
+        line-height: 27px; /* -- Responsive -- */
+    }
+    nav {
+        left: 86px; /* -- Responsive -- */
+        top: 21px; /* -- Responsive -- */
+    }
+    nav #nav-main {
+        font-size: 54px; /* -- Responsive -- */
+        line-height: 68px; /* -- Responsive -- */
+        letter-spacing: 1px; /* -- Responsive -- */
+    }
+    body.template-5 nav #nav-main {
+        font-size: 68px; /* -- Responsive -- */
+        line-height: 85px; /* -- Responsive -- */
+    }
+    .nav-sub {
+        min-height: 68px;
+    }
+    #content {
+        left: 418px; /* -- Responsive -- */
+        top: 25px; /* -- Responsive -- */
+        width: 330px; /* -- Responsive -- */
+    }
+}
+
+@media only screen and (min-width: 1024px) and (min-height: 793px) { 
+    body {
+        font-size: 18px; /* -- Responsive -- */
+        line-height: 24px; /* -- Responsive -- */
+    }
+    footer {
+        left: 22px; /* -- Responsive -- */
+        bottom: 18px; /* -- Responsive -- */
+    }
+    h2,
+    h3,
+    h4,
+    header h1,
+    .nav-sub,
+    footer #nav-footer {
+        font-size: 30px; /* -- Responsive -- */
+        line-height: 40px; /* -- Responsive -- */
+    }
+    
+    nav {
+        left: 120px; /* -- Responsive -- */
+        top: 25px; /* -- Responsive -- */
+    }
+    nav #nav-main {
+        font-size: 80px; /* -- Responsive -- */
+        line-height: 97px; /* -- Responsive -- */
+        letter-spacing: 1px; /* -- Responsive -- */
+    }
+    body.template-5 nav #nav-main {
+        font-size: 100px; /* -- Responsive -- */
+        line-height: 121px; /* -- Responsive -- */
+    }
+    .nav-sub {
+        min-height: 97px;
+    }
+    #content {
+        left: 616px; /* -- Responsive -- */
+        top: 29px; /* -- Responsive -- */
+        width: 380px; /* -- Responsive -- */
+    }
+}
+
+@media only screen and (min-width: 1280px) and (min-height: 980px) {
+    nav #nav-main {
+        font-size: 105px; /* -- Responsive -- */
+        line-height: 128px; /* -- Responsive -- */
+        letter-spacing: 2px; /* -- Responsive -- */
+    }
+    body.template-5 nav #nav-main {
+        font-size: 131px; /* -- Responsive -- */
+        line-height: 160px; /* -- Responsive -- */
+    }
+    .nav-sub {
+        min-height: 128px;
+    }
+    #content {
+        left: 776px; /* -- Responsive -- */
+        top: 32px; /* -- Responsive -- */
+        width: 480px; /* -- Responsive -- */
+    }
+}
+
+/* print */
+@media print {
+    body {
+        background: transparent;
+    }
+	header {
+        position: relative;
+        width: auto;
+        height: auto;
+        left: -0;
+        bottom: auto;
+        top: 0;
+        -webkit-transform: none;
+        -moz-transform: none;
+        -ms-transform: none;
+        -o-transform: none;
+        filter: none;
+	}
+	nav,
+	footer,
+    a.more {
+	    display: none;
+	}
+	#content {
+        width: auto;
+        height: auto;
+        position: relative;
+        left: 0;
+        margin: 50px 0 0 0;
+	}
+}

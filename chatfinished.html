@@ -1,0 +1,1627 @@
+<!DOCTYPE html>
+
+<!-- angular lib -->
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
+<link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
+<script type='text/javascript' src="http://documentcloud.github.com/underscore/underscore-min.js"></script>
+<script type='text/javascript'
+		src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.min.js"></script>
+
+<style type="text/css">
+</style>
+
+<html>
+<head lang="en">
+	<meta charset="UTF-8">
+	<title>Chat Simulation</title>
+</head>
+
+<body ng-app="chatSimulator">
+
+<div ng-controller="ChatSimController" class="container">
+	<div class="row">
+		<div class="col-md-4"></div>
+		<div class="col-md-4">
+			<div ng-repeat="msg in chat.messagesUsed">
+				<div style="padding: 10px 0 10px 0; border-bottom: solid 1px;">
+					<div style="float: left; font-size: 16px;">
+						<label data-ng-class="{'text-muted' : msg.systemMessage === true}">
+							{{msg.name}}
+						</label>
+					</div>
+					<div style="color: #737373; float: right;">
+						{{msg.name.length < 1 ? '' : msg.date | date:'yyyy-MM-dd HH:mm:ss'}}
+					</div>
+					<div style="clear: both;" data-ng-class="{'text-muted' : msg.systemMessage === true}">
+						{{msg.text}}
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4"></div>
+	</div>
+</div>
+
+
+</body>
+</html>
+
+
+<script>
+var module = angular.module('chatSimulator', []);
+
+module.controller('ChatSimController', ['$scope', '$timeout', function ($scope, $timeout) {
+	$scope.chat = {
+		messagesUsed: [
+		],
+		messagesPool: [
+			{
+
+			},
+			{    name: "Bolz_Norbert",
+				text: "Jedenfalls wird Gemeinschaft heute radikal von Kommunikation her gedacht. Nicht der Weltbürger, sondern der Netzbürger ist im globalen Dorf zu Hause."
+			},
+			{    name: "Bolz_Norbert",
+				text: "Die moderne Gesellschaft ersetzt Anwesenheit durch kommunikative Erreichbarkeit. Hier kann man nun eine faszinierende Beobachtung machen. Die Kommunikation in die Ferne gelingt uns sehr viel besser als die mit dem, >>Nächsten<<. Das weckt den Verdacht, dass die Begeisterung für Telekommunikation und die Political Correctness der Fernstenliebe als Alibi für die gescheiterte Nähe herhalten müssen."
+			},
+			{    name: "mercedes_bunz",
+				text: "Digitalisierung schafft neue Formen des Dialoges, aber sie liefert uns damit keine vollautomatische Gemeinschaft. Wissen, die Logik anderer Gesellschaften und Vorstellungswelten stehen uns heute sperrangelweit offen, und das bedeutet einen so großen Schritt für die Menschheit, wie jener erster Schritt von Neil Armstrong auf dem graustaubigen Mond."
+			},
+			{    name: "Gehlen_Dirk",
+				text: "Was früher beiläufig daher gesagt war, ist im Netz stets beiläufig daher geschrieben. Die Flüchtigkeit der gesprochenen Kommunikation wird auf das geschriebene Wort übertragen und führt so zu einer Renaissance alter oraler Erzähltraditionen in einem neuen, digitalen Kontext der Schriftsprache."
+			},
+			{    name: "Gehlen_Dirk",
+				text: "Die Kommunikationskultur ist dadurch lebendiger geworden. Text als kulturelle Kategorie wurde durch neue Abkürzungen und Emoticons belebt und erfreut sich *lol“ einer vitalen wie viralen Präsenz, die zu einer erstaunlichen Verschiebung der Bewertungsmuster geführt hat."
+			},
+			{    name: "miles_barry",
+				text: "Cut the word lines and you will hear their voices. Cut-ups often come through as code messages with special meaning for the cutter. Table tapping? Perhaps. Certainly an improvement on the usual deplorable performances of contacted poets through a medium."
+			},
+			{    name: "William_Borroughs",
+				text: "Die Nachricht wird zerhackt gesendet und auf Empfängerseite wieder zusammen gesetzt. Es gibt eine ganze Anzahl solcher Sprachzerhackter, die nach verschiedenen Prinzipien arbeiten."
+			},
+			{    name: "Leif_Kramp",
+				text: "Die Plagiatsskandale der jüngeren Vergangenheit haben zwar gezeigt, dass das Copy-and-Paste-Verfahren keine Erfindung des digitalen Zeitalters ist. Sie liefern aber einen Beleg dafür, mit welch vermeintlicher Leichtigkeit wissenschaftliche Arbeiten außerwissenschaftlich falsifizierbar geworden sind, siehe Internetportale wie Vronigplag oder Politplag. Das wissenschaftliche Qualitätsmanagement steht unter erhöhtem Rechtfertigungsdruck."
+			},
+			{    name: "Heinz_von_Förster",
+				text: "Ich hatte verstanden: das Problem ist das einander verstehen; das Problem liegt im Verstehen des Verstehens; das Problem besteht darin, Entscheidungen über prinzipiell unentscheidbare Fragen zu treffen."
+			},
+			{    name: "Enzensberger_Hans_Magnus",
+				text: "Die elektronische Technik kennt keinen prinzipiellen Gegensatz von Sender und Empfänger."
+			},
+			{    name: "William_Borroughs",
+				text: "Die neu zu schaffende Sprache wird diese Virusmechanismen beseitigen und wird es unmöglich machen, sie zu formulieren. Es wird Lautsprache sein wie das Chinesische, die Schriftzeichen werden möglichst weitgehend aus Bildern bestehen, ohne dass jedoch das Schreiben unnötig schwierig und umständlich ist."
+			},
+			{    name: "virilio_paul",
+				text: "In einem berühmten Abschnitt von II Saggiatore (Der Prüfer) beschrieb Galilei die Hauptpunkte seiner Methode: Die Philosophie ist in dem großen Buch niedergeschrieben, das immer offen vor unseren Augen liegt, dem Universum. Aber wir können es erst lesen, wenn wir zuvor die Sprache erlernt und uns die Zeichen vertraut gemacht haben, in denen es geschrieben ist. Es ist in der Sprache der Mathematik geschrieben..."
+			},
+			{    name: "Hibbard_Allen",
+				text: "The forward step must be made in silence, we detach ourselves from word forms--this can be accomplished by substituting for words, letters, concepts, verbal concepts, to other modes of expression: for example, color. We can translate word and letter into color. In other words man must get away from verbal forms to attain the consciousness, that which is there to be perceived at hand."
+			},
+			{    name: "William_Borroughs",
+				text: "Der Benutzer dieser Sprache kann, wenn er nicht redet, die stummen Bilder der geschriebenen, bildhaften und symbolischen Sprache auf sich wirken lassen"
+			},
+			{    name: "Kennth_Goldsmith",
+				text: "In the digital age, language (aka code) has become materialized, taking on a whole new dimension."
+			},
+			{    name: "Florian_Pfeffer",
+				text: "Es entstehen neue Formen der Beteiligung an demokratischen Prozessen, neue Geschäftsmodelle, Technologien und Kommunikationsformen. "
+			},
+			{    name: "virilio_paul",
+				text: "Seit der Antike konnte man eine zunehmende Vereinfachung der geschriebenen Buchstaben und später des typografischen Schriftbildes feststellen, die der Beschleunigung bei der Übermittlung von Botschaften entsprach und Iogischer Weise zu einer radikalen Verkürzung des Inhaltes der Information führte."
+			},
+			{    name: "Gehlen_Dirk",
+				text: "Live-Chats, Twitter- und Facebook-Nutzung sowie die gesamte Mailkommunikation ist zwingend an das Medium Text geknüpft. Erst langsam (z. B. durch das Aufkommen von Instagram und Snapchat) werden auch Bilder in diesem Textkontext (mit)teilbar."
+			},
+			{    name: "Gehlen_Dirk",
+				text: "Wie merkwürdig diese Sorge 30 Jahre später wirkt, erkennen wir daran, dass man jüngeren Smartphone-Besitzern heute erklären muss, dass sie mit ihrer aktuellen Version des Taschencomputers auch telefonieren können. Smartphone-Nutzung gerade unter jungen Menschen ist kurztextgetrieben."
+			},
+			{    name: "Gehlen_Dirk",
+				text: "Menschen: die sich um den Fortbestand der Kultur sorgen, bedrückte in den 1980er Jahren eine Angst, die mit einem Übermaß an Bildern zu tun hatte. Das sich ständig ausbreitende Fernsehen spülte Bilder, Bilder, Bilder in die sprichwörtlichen Wohnzimmer der Menschen. Daraus erwuchs eine zentrale Sorge: Der Text, der als Ausdruck kontemplativer Tiefe und intellektueller Reife galt, würde durch das TV-Signal ungelesen in den Hintergrund – konkret in die Ecken der Buchregale – gedrängt."
+			},
+			{    name: "William_Borroughs",
+				text: "Communication must become total and conscious before we can stop it."
+			},
+			{
+
+				text: "[William_Burroughs, Gehlen_Dirk, virilio_paul, Bolz_Norbert, Florian_Pfeffer, Kennth_Goldsmith, Hibbard_Allen, Enzensberger_Hans_Magnus, Heinz_von_Förster, Leif_Kramp, miles_barry, mercedes_bunz, Bolz_Norbert have logged on]",
+				name: "",
+				systemMessage: true
+			},
+			{
+
+				text: "",
+				name: "YOU JOINED S P R A C H E",
+				systemMessage: true
+			},
+			{    name: "Marshall_McLuhan",
+				text: "Das Medium ist die Botschaft. Die Technik der Erfindung war eine Entdeckung des 19. Jahrhunderts, aufgebracht durch die Adoption fixierter Blickpunkte und Perspektiven durch die Typographie, während die Technologie des suspendierten Urteils die Entdeckung des 20. Jahrhundert ist, die durch die orphischen Fähigkeiten des Radios, Fernsehens und Films erbracht werden."
+			},
+			{    name: "mercedes_bunz",
+				text: "Journalismus fungiert seit langem als politisches Kontrollprogramm, er schreibt die Politiker auf eine Wahrheit fest, die nicht ihre Wahrheit ist - eben deshalb bezeichnet man die Medien als vierte Gewalt im Staat. Diese Arbeitsteilung stellt sich mit der Digitalisierung neu auf, und man könnte auf den ersten Blick meinen, dass dies vor allem an der Digitalisierung selbst liegt."
+			},
+			{    name: "Brand_Stewart",
+				text: "A library doesn't need windows. A library is a window."
+			},
+			{    name: "Kennth_Goldsmith",
+				text: "For the past twenty years, I've been fascinated with rendering the mundane in language. In hindsight, my archival impulse arose concurrent with the internet, which also seemed intent on creating a rast warehouse of our most commonplace experiences--at least in the early days--in words. It immediately became clear to me the digital condition was going to be one of abundance, storing more words than I´d ever be able to consume. As a response, I made big books which, even in paper, reflected this new reIationship to language."
+			},
+			{    name: "Alan_Ruisbridger",
+				text: "Traditional media allowed a few voices in. Twitter allows anyone."
+			},
+			{    name: "Pfeffer_Florian",
+				text: "Meme stehen beispielhaft für neue Kommunikationsmodelle in Netzwerken, in denen Sender und Empfänger, Kanal und Gestalter in einer hybriden Melange zusammenfallen."
+			},
+			{    name: "FalkoBlast",
+				text: "An die Stelle real erfahrbarer Aktionen sind auf Mediennorm formatierte Bildschirmereignisse getreten, im Zusammenhang mit denen zwar jeder unbeschränkt Zugriff auf Informationen hat, deren Rezeption aber ausschließlich auf die reduzierte Oberfläche des Bildschirms beschränkt ist."
+			},
+			{    name: "Pfeffer_Florian",
+				text: "Wir sind – was die digitale Vernetzung betrifft – wie Kinder im Meer. Wir stürzen uns kopfüber ins Vergnügen und haben keine Schwimmflügel an."
+			},
+			{    name: "Alan Rusbridger",
+				text: "No one owns the digital space and it is barely regulated. It brings with it an entirely new idea of what journalism is."
+			},
+			{    name: "Rammert_Werner",
+				text: "Jedes neue Medium der Kommunikation weist eine Dualität der Struktur auf: In diesem Medium können einerseits von den Handelnden neue Räume entworfen, unbekannte Möglichkeiten erschlossen und verschiedene Umgangsformen erprobt werden; andererseits setzen dann die durch Spiel und Experimentieren freigelegten und die nach Entwurf installierten Eigenheiten des Mediums bestimmte Schranken und Begrenzungen für künftige Praktiken."
+			},
+			{    name: "Mark_Zuckerberg",
+				text: "Bücher können ein Thema viel umfassender darstellen als die meisten anderen Medien heute. Ich freue mich deshalb, meinen täglichen Medienkonsum auf Bücher hin zu verlagern."
+			},
+			{    name: "WalterBenjamin",
+				text: "Das Hier und Jetzt des Originals macht den Begriff seiner Echtheit aus."
+			},
+			{    name: "Bolz_Norbert",
+				text: "Wenn Menschen im Internet surfen, geht es nicht vorrangig darum, Informationen aufzunehmen oder auszutauschen. Sie wollen in der Redundanz der Botschaft mitschwingen, oben auf der Welle bleiben. Es geht nicht um Information, sondern um Faszination."
+			},
+			{    name: "Duhamel_Georges",
+				text: "Die beweglichen Bilder haben sich an den Platz meiner Gedanken gesetzt."
+			},
+			{    name: "Duhamel_Georges",
+				text: "Ich kann schon nicht mehr denken, was ich denken will."
+			},
+			{    name: "WalterBenjamin",
+				text: "Damit ist die Unterscheidung zwischen Autor und Publikum im Begriff ihren grundsätzlichen Charakter zu verlieren."
+			},
+			{    name: "William_Burroughs",
+				text: "Die Kontrolle der Massenmedien beruht darauf, dass sie dich auf bestimmte Assoziationsketten festlegen."
+			},
+			{
+
+				text: "[William_Burroughs, WalterBenjamin, Duhamel_Georges, Bolz_Norbert, Mark_Zuckerberg, Rammert_Werner, Alan Rusbridger, Pfeffer_Florian, FalkoBlast, Kennth_Goldsmith, Brand_Stewart, mercedes_bunz, Marshall_McLuhan have logged on]",
+				name: "",
+				systemMessage: true
+			},
+			{
+
+				text: "",
+				name: "YOU JOINED M A S S E N M E D I E N",
+				systemMessage: true
+			},
+			{    name: "virilio_paul",
+				text: "Wenn man sich über das Licht Gedanken macht, das kein Bild hat und dennoch Bilder erzeugt, stellt man fest, dass die Konditionierung von Massen durch Lichtreize nicht erst von gestern stammt."
+			},
+			{    name: "Hannah_Arendt",
+				text: "Es war nicht so sehr der Respekt vor Privatbesitz, der die Polis daran hinderte, den privaten Bereich ihrer Bürger zu ruinieren."
+			},
+			{    name: "Konrad_Becker",
+				text: "Auch wenn König Ludwig der XIV vor versammeltem Hofstaat seinen Darm entleerte, sollte das nicht darüber hinwegtäuschen, dass die Privatsphäre des Souveräns geschützt war."
+			},
+			{    name: "virilio_paul",
+				text: "Die Renaissance erscheint aus heutiger Sicht nicht nur als eine Rückkehr zur Antike, sondern auch als der Beginn einer Periode, in der alle trennenden Zwischenräume überwunden werden, was direkt die Wirkung des Realen verändert."
+			},
+			{    name: "Enzensberger_Hans_Magnus",
+				text: "Die neuen Medien sind aktions-und nicht kontemplativ, augenblicks- und nicht traditionell orientiert. Sie lösen >>geistiges Eigentum<< schlechthin auf und liquidieren das >>Erbe<<, das heißt die klassenspezifische Weitergabe des immateriellen Kapitals."
+			},
+			{    name: "Enzensberger_Hans_Magnus",
+				text: "Der Wendung ins Defensive liegt subjektiv ein Erlebnis der Ohnmacht zugrunde. Objektiv entspricht ihr die vollkommen richtige Einsicht, dass die entscheidenden Produktionsmittel in der Hand des Gegners sind. Diesem Sachverhalt mit moralischer Empörung zu begegnen ist allerdings naiv."
+			},
+			{    name: "Hannah_Arendt",
+				text: "Hier entspringt die Einsicht und mit ihr das Denken aus dem Sprechen, und nicht umgekehrt."
+			},
+			{    name: "WalterBenjamin",
+				text: "Unsere Kneipen und Großstadtstraßen, unsere Büros und möblierten Zimmer, unsere Bahnhöfe und Fabriken schienen uns hoffnungslos einzuschließen."
+			},
+			{    name: "Enzensberger_Hans_Magnus",
+				text: "Wenn ich mobilisieren sage, so meine ich mobilisieren, nämlich, die Menschen beweglicher machen als sie sind. Frei wie Tänzer, geistesgegenwärtig wie Fußballspieler, überraschend wie Guerilleros."
+			},
+			{    name: "Enzensberger_Hans_Magnus",
+				text: "Das offenbare Geheimnis der elektronischen Medien, das entscheidende politische Moment, das bis heute unterdrückt oder verstümmelt auf seine Stunde wartet, ist ihre mobilisierende Kraft."
+			},
+			{    name: "Hannah_Arendt",
+				text: "Von den Tätigkeiten, die in allen Formen menschlichen Zusammenlebens anzutreffen sind, galten nur zwei als eigentlich politisch, nämlich Handeln und Reden."
+			},
+			{    name: "Hannah_Arendt",
+				text: "Die Polis unterschied sich vom Haushaltsbereich dadurch, dass es in ihr nur Gleiche gab."
+			},
+			{    name: "Enzensberger_Hans_Magnus",
+				text: "Die neuen Medien sind ihrer Struktur nach egalitär. Durch einen einfachen Schaltvorgang kann jeder an ihnen teilnehmen; die Programme selbst sind immateriell und beliebig reproduzierbar."
+			},
+			{    name: "Hannah_Arendt",
+				text: "Im Gegensatz hierzu war der Raum der Polis das Reich der Freiheit."
+			},
+			{    name: "virilio_paul",
+				text: "Sehen, ohne gesehen zu werden, ist einer der heimlichen Leitsprüche der Polizei."
+			},
+			{    name: "Hannah_Arendt",
+				text: "Das wissenschaftliche Denken, das dieser Entwicklung entspricht, heißt nicht mehr politische Wissenschaft, sondern >>Nationalökonomie<< oder Volks-Wirtschaft oder >>social economy<<, und alle diese Ausdrücke weisen darauf hin, das wir es in der Tat mit einer Art >>kollektiven Haushaltens<< zu tun haben."
+			},
+			{    name: "virilio_paul",
+				text: "Um den Menschen zu erleuchten, aufzuklären und zu durchleuchten (und zwar in dem Moment, wo das Dasein des Menschen zu seinem eigenen Studienobjekt wurde, zum Objekt eines positiven Wissens (Foucault). Der Aufstieg des 4. Standes vollzieht sich in dieser Lichtspiegelung, die nur die Illusion des Sichtbaren ist."
+			},
+			{    name: "Hannah_Arendt",
+				text: "Weil wir seit dem Beginn der Neuzeit jeden Volkskörper und jedes politische Gemeinwesen im Bild der Familie verstehen. So gehen in der modernen Welt diese beiden Gebiete dauernd ineinander über."
+			},
+			{    name: "virilio_paul",
+				text: "Durch dieses Eindringen ins Dunkle wollte man ein totales Bild von der Gesellschaft bekommen."
+			},
+			{    name: "virilio_paul",
+				text: "Die öffentliche Beleuchtung, die Demokratisierung der Beleuchtung, wurde geschaffen, um den Blick aller zu täuschen."
+			},
+			{    name: "Hannah_Arendt",
+				text: "Die größte Schwierigkeit für ein immer geartetes Vergleichen liegt darin, dass die Neuzeit das Gesellschaftliche nicht eigentlich vom Politischen scheidet und unterscheidet."
+			},
+			{
+
+				text: "[Hannah_Arendt, virilio_paul, Enzensberger_Hans_Magnus, WalterBenjamin, Konrad_Becker have logged on]",
+				name: "",
+				systemMessage: true
+			},
+			{
+
+				text: "",
+				name: "YOU JOINED Ö F F E N T L I C H E R  R A U M",
+				systemMessage: true
+			},
+			{    name: "Florian_Pfeffer",
+				text: "Wir leben heute mitten in einem sich lange hinziehenden Übergang von national geprägten Industriegesellschaften hin zu... ja wohin eigentlich? Zur globalisierten Wissensgesellschaft, Informationsgesellschaft, Netzgesellschaft oder der Einfachheit halber zur >>post-industriellen<< Gesellschaft?"
+			},
+			{    name: "Enzensberger_Hans_Magnus",
+				text: "Die Angst, vom System verschluckt zu werden, ist ein Schwächesymptom; sie setzt voraus, dass der Kapitalismus mit jedem Widerspruch fertig zu werden vermöchte, eine Überzeugung, die historisch leicht zu widerlegen und theoretisch unhaltbar ist."
+			},
+			{    name: "Marc_Elsberg",
+				text: "Zahlreiche Experimente und Studien belegen seit Jahrzehnten: Überwachung macht feige, verletzlich, unsicher, machtlos, austauschbar, aggressiv und mehr. Sie schadet der einzelnen Person und der gesamten Gesellschaft."
+			},
+			{    name: "William_Borroughs",
+				text: "Wenn des menschliche Nervensystem eine verschlüsselte Nachricht empfängt und entschlüsselt, wird dem Betreffenden diese Nachricht wie sein eigener Gedanke erscheinen, der ihm gerade in den Kopf gekommen ist – und das ist er auch in der Tat."
+			},
+			{    name: "Mark_Elsberg",
+				text: "In einer durchkommerzialisierten Gesellschaft ist auch Datensouveränität nur ein Businessmodell. Damit verkaufen uns nicht mehr andere, sondern wir verkaufen uns selbst."
+			},
+			{    name: "virilio_paul",
+				text: "Wenn man heute von der Entwicklung der audiovisuellen Medien spricht, dann kann man dies nicht, ohne zugleich nach der Entwicklung jener virtuellen Bildwelt und ihrem Einfluss auf die Verhaltensweisen zu fragen und ohne darüber hinaus auf jene neue Industrialisierung des Sehens hinzuweisen, auf das Entstehen eines regelrechten Marktes der synthetischen Wahrnehmung."
+			},
+			{    name: "Konrad_Becker",
+				text: "Wenn alle permanent lokalisierbare Körpersensoren und Bewegungsmelder mit sich führen, wird der Traum digitaler Menschenhändler Wirklichkeit."
+			},
+			{    name: "Konrad_Becker",
+				text: "Bewusste Erfahrung eines verkörperten Individuums wird durch Selbstbestimmung, Verortung und menschliches Handeln erklärt. Persönliche Identität bezieht sich auf Geographie und Mobilität. Genau zu wissen, wo jemand ist bedeutet auch zu wissen, wer es ist. Ständig verfügbare Verortung entblößter Datenkörper ist Geosklaverei."
+			},
+			{    name: "virilio_paul",
+				text: "Wir kennen zwar die Übertragung der Aufnahmen durch Videokameras in Bankfilialen und Supermärkten, wir ahnen die Anwesenheit von Wachpersonal, den Blick auf Kontrollmonitore gerichtet, doch mit der computergestützten Wahrnehmung, der Visionik, wird es unmöglich, die Konfiguration und die Interpretationsweise dieses Sehens ohne Blick einzuschätzen."
+			},
+			{    name: "Marc_Elsberg",
+				text: "Sobald heute eine Schwangere mit ihrer Kundenkarte bei einer analytisch gut aufgestellten Kaufhaus- oder Supermarktkette einkauft, kennt das Unternehmen den Geburtstermin auf wenige Tage genau."
+			},
+			{    name: "Gehlen_Dirk",
+				text: "Wenn wir über menschliche Kommunikation nachdenken, denken wir an Worte, an Gesten und inhaltlichen Austausch. Der NSA-Überwachungsskandal, der auf erstaunliche Weise ein Brennglas auf die Mechanismen gegenwärtiger Kommunikation gehalten hat, beweist aber: Daten sind wichtiger als Inhalte, Metadaten sagen mehr als tausend Worte."
+			},
+			{    name: "Marc_Elsberg",
+				text: "Wichtiger ist jedoch ein gesellschaftliches Übereinkommen darüber, was erlaubt sein soll. Ein Beispiel: Wir dürfen nicht mit Menschen oder Organen handeln. Daten, die mein Körper erzeugt, sind schon sehr nahe dran an meinem Körper. Soll man damit handeln dürfen?"
+			},
+			{    name: "Marc_Elsberg",
+				text: "Es gibt sicherlich Möglichkeiten, mithilfe technologischer Lösungen und innovativer Geschäftsmodelle unsere Kommunikation und die Kontrolle über unsere Daten wieder zurückzubekommen – zumindest teilweise."
+			},
+			{    name: "Gierow_Hauke",
+				text: "Der unkontrollierte Ausbau der technischen Fähigkeiten und legalen Möglichkeiten von Geheimdienste, der nach dem 11. September 2001 erfolgte, hat den Vorrang der nationalen Sicherheit vor demokratischen Prinzipien endgültig durchgesetzt. Dabei hat die US-Regierung unter Barack Obama seit ihrem Amtsantritt 2009 mehr Whistleblower verfolgt als alle Vorgängerregierungen zusammen."
+			},
+			{    name: "Marc_Elsberg",
+				text: "Das Thema Datenschutz ist eines der wichtigsten der kommenden Jahre, wenn wir freie Individuen bleiben und die noch bestehenden Reste unserer demokratischen, rechtsstaatlichen, offenen Gesellschaften erhalten wollen. Diese sind nämlich schon ziemlich erodiert."
+
+			},
+			{    name: "Gierow_Hauke",
+				text: "Neben der staatlichen Zensur greift auch die Massenüberwachung, über die wir fast täglich etwas Neues erfahren, tief in die informationelle Selbstbestimmung und in die Privatsphäre der Nutzer ein. Die digitale Massenüberwachung dient den staatlichen Agenturen auch dazu, Informationen zu gewinnen – etwa mittels Deep-Packet-Inspection, damit sie ihre Zensurmaßnahmen und ihre Kontrolle über Netzinhalte immer mehr ausweiten und technisch verbessern können. Sie macht es möglich, Informationen aus dem Klickstream der Nutzer automatisiert zu entfernen, ohne dass dafür eine Internetadresse komplett blockiert werden muss."
+			},
+			{    name: "Christian_Christensen",
+				text: "Die grenzenlose Welt der Datenströme ist eine Chimäre, das zeigte sich schon früh an vergleichsweise harmlosen Aktionen, wie im Mai 2008, als der damalige türkische Ministerpräsident Erdogan kurzerhand YouTube sperren ließ, nachdem ihm zugetragen worden war, dass der Staatsgründer Atatürk in einem Spot <<verunglimpft>> werde, bis hin zu massiven Eingriffen ins Privatleben, wie im August 2010, als das saudische Königshaus aus <<Sicherheitsgründen>> kurzfristig den Messenger-Dienst von Blackberry-Smartphones in Saudi-Arabien abschalten ließ."
+			},
+			{    name: "Strittmatter_Kai",
+				text: "Das chinesische Modell, die neoautoritäre Inbesitznahme des Netzes – im Moment funktioniert das prima. Und es strahlt aus: Andere nehmen sich ein Vorbild an Peking, dem Vorreiter in Sachen raffinierter Netzmanipulation. Vietnam, Russland, Saudi-Arabien."
+			},
+
+			{    name: "Marc_Elsberg",
+				text: "Wir drohen die Kontrolle über das ganze System zu verlieren – auch die Programmierer."
+			},
+			{    name: "Marc_Elsberg",
+				text: "Manche Software ist derart komplex, dass die Entwickler selbst den Überblick über ihre Programmzeilen verloren haben. Und auf das, was diese Algorithmen dann so berechnet haben, verlassen wir uns. Hinzu kommen etwa noch sogenannte evolutionäre Algorithmen, die weitgehend eigenständig Programme entwickeln. Die können bestens funktionieren, warum aber das der Fall ist – das kann niemand mehr nachvollziehen."
+			},
+			{    name: "Christian_Christensen",
+				text: "Die digitale Welt wird immer wieder als grenzenlos, ohne feste Hierarchien und voller fließender Übergänge beschrieben. Aber das ist höchstens die halbe Wahrheit. Auch im digitalen Zeitalter gibt es sehr wohl feste Strukturen und Staatsgrenzen, die den gesetzlichen Rahmen festlegen."
+			},
+			{    name: "eXistenz",
+				text: "Der freie Wille zählt offensichtlich nicht besonders viel in dieser kleinen Welt hier."
+			},
+			{    name: "Christian_Christensen",
+				text: "ln der Praxis haben Informationen nur dann einen Wert, wenn sie verbürgt sind."
+			},
+			{    name: "Marc_Elsberg",
+				text: "Amazon fiel ja beispielsweise neulich mit der Meldung zu einem Patent auf, demzufolge sie Produkte schon versenden wollen, bevor man sie bestellt hat – weil sie durch Datenanalyse mit hoher Wahrscheinlichkeit wissen, dass man das Produkt bestellen wird."
+			},
+			{    name: "FalkoBlast",
+				text: "Das Ergebnis ist ein sich selbst produzierendes und selbstbezügliches System, in dem soziale Kontrolle derart funktioniert, dass a priori kein Außen mehr möglich ist, dass alle Wahl- und Antwortmöglichkeiten der sozialen Subjekte immer schon vorgegeben sind."
+			},
+			{    name: "Marc_Elsberg",
+				text: "Ein Credit Score dagegen hat bereits direkten Einfluss auf unser Handeln. Kaufe ich? Kaufe ich nicht? Fahre ich in Urlaub? Oder nicht? Investiere ich? Und im Allgemeinen weiß ich nicht einmal, wo und wie das Unternehmen überall meine Handlungen mitbeeinflusst."
+			},
+			{    name: "Marc_Elsberg",
+				text: "Die Frage ist, ob sie uns manipulieren wollen. Und wenn ja, wie. Und wer die Regeln dafür festlegt. Und dass sie niemand kontrolliert. Wobei Google oder Facebook bislang ja hauptsächlich „nur“ Informationen beeinflussen können."
+			},
+			{    name: "Florian_Pfeffer",
+				text: "Bestehende Machtblöcke lösen sich auf und die Gesellschaften haben die Chance, offener zu werden."
+			},
+			{
+				name: "Strittmatter_Kai",
+				text: "Noch vor kurzem sah es so aus, als habe sich ein Fenster aufgetan. Vier erstaunliche Jahre lang, von 2009 bis 2013, durften Chinas Netzblogger glauben, das freie Wort sei ihnen in den Schoß gefallen. Schuld hatten die sozialen Medien, allen voran der Mikro-Bloggingdienst Weibo, Chinas Gegenstück zu Twitter. Twitter selbst hatte die Kommunistische Partei (KP) wie auch Facebook sofort verboten; Weibo, die chinesische Kopie, erlaubte sie 2009."
+			},
+			{
+				name: "Marc_Elsberg",
+				text: "Es ist das alte Thema: Wissen ist Macht. Wer das Wissen über unsere Daten hat und darüber, wie man sie auswertet, hat die Macht. Die Frage ist daher, wer die Macht haben sollte. Wer die Regeln macht. Wer bestimmt, was verboten oder erlaubt ist. Ein paar wenige oder viele."
+			},
+			{
+				name: "Strittmatter_Kai",
+				text: "Millionen Chinesen nutzen das Internet, die Hälfte in sozialen Netzwerken. Und die Regierung baut die Infrastruktur mit aller Macht aus. Weil es der Wirtschaft nützt und das Land stark macht. Der Hangzhouer Onlinehändler Alibaba macht mehr Umsatz als Amazon und Ebay zusammen. Im April beging das Netz seinen 20. Geburtstag im Land, Parteichef Xi Jingping feiert China als kommende „Cybermacht“, die Nachrichtenagentur Xinhua schwärmte von der „Innovationskraft“ Chinas, der man ein „einzigartiges Internetmanagement“ verdanke: Kommerz und Kontrolle aufs Fruchtbarste vereint."
+			},
+			{
+
+				text: "[Strittmatter_Kai, Marc_Elsberg, Florian_Pfeffer, FalkoBlast, Christian_Christensen, eXistenz, Gierow_Hauke, Gehlen_Dirk, virilio_paul, Konrad_Becker, William_Borroughs, Enzensberger_Hans_Magnus have logged on]",
+				name: "",
+				systemMessage: true
+			},
+			{
+
+				text: "",
+				name: "YOU JOINED M A C H T",
+				systemMessage: true
+			},
+			{
+				name: "Jochen_Homann",
+				text: "Der Wettlauf zwischen IT-Sicherheit und Hackern hat längst begonnen."
+			},
+			{
+				name: "Pfeffer_Florian",
+				text: "Alle Versuche, der Entwicklung einer globalen, vernetzten, dynamischen und hybriden Kultur die passende Überschrift zu geben, sind Ausdruck einer Ratlosigkeit im Angesicht stark ansteigender Komplexität."
+			},
+			{
+				name: "michaeljäckel",
+				text: "Mit dem Aufkommen der Verbreitungsmedien beziehen sich Wissen, Aktualität und Neuigkeit aufeinander. Neu zur Disposition steht, was wissenswert ist und vor allem wie lange."
+			},
+			{
+				name: "Jens_Martin_Loebel",
+				text: "Ist es noch möglich, die Herrschaft über unsere Daten wieder zu erlangen? Was taugen die privaten Clouds, vereinen sie Privatheit mit Bequemlichkeit? Hilft Verschlüsselung? "
+			},
+			{
+				name: "Stephen_Wolfram",
+				text: "Wenn man die Sucharbeit automatisiert, interessiert sich plötzlich jeder dafür. Wir sind heute in der Lage, bessere Entscheidungen zu treffen, weil wir Zugang zu mehr Wissen haben. Das ist guter Fortschritt."
+			},
+			{
+				name: "Pfeffer_Florian",
+				text: "Auf die weltweite Digitalisierung folgt nun die weltweite Vernetzung- sowohl im Kleinen (Internet der Dinge) wie im Großen (Big Data)."
+			},
+			{
+				name: "Jens_ Martin_Loebel",
+				text: "Durch die Zusammenführung mit anderen Daten(-spuren) liefern wir freiwillig den Stoff, aus dem die kühnsten Träume von Werbe-Abteilungen und Geheimdiensten sind."
+			},
+			{
+				name: "Marc_Elsberg",
+				text: "Ganz allgemein geht es um den gläsernen Menschen. Oder auch: Wer nichts zu verbergen hat, der muss sich fürchten."
+			},
+			{
+				name: "Heinz_von_Förster",
+				text: "Jedes Teilchen in der Physik ist die Antwort auf eine Frage, die wir nicht beantworten können."
+			},
+			{
+				name: "Stephen_Wolfram",
+				text: "Verlockend ist, dass man sehr präzise Kurven herausbekommt, wenn man sich Daten über das Verhalten von Menschen ansieht."
+			},
+			{
+				name: "Heinz_von_Förster",
+				text: "Da werden Teilchen erfunden, die das machen, was wir nicht verstehen."
+			},
+			{    name: "Marc_Elsberg",
+				text: "Letztlich geht es darum, dass wir die ganze Welt, das gesamte Leben mess-, berechen- und vor allem handelbar machen."
+			},
+			{    name: "Stephen_Wolfram",
+				text: "Wenn Sie im Internet nach einer Person suchen, sind die Suchergebnisse nicht besonders genau. Aber wenn wir verschiedene Datenquellen zusammenführen – vor allem in den USA, wo diese Daten zum Großteil öffentlich zugänglich sind – dann können wir sehr genaue Informationen über eine Person liefern."
+			},
+			{    name: "Cole_David",
+				text: "Wir töten Menschen auf der Basis von Metadaten."
+			},
+			{    name: "Karen_Carr",
+				text: "It is also a curious paradox that virtual reality is hailed as an important advance in helping us to visualize and control more complex information, such as abstract computational data, when it does so by moving us 'backwards' into our primitive, subjective viewpoint."
+			},
+			{    name: "Irwin_Winkler",
+				text: "Sie müssen daran denken, in der heutigen Zeit sind Informationen heilig."
+			},
+			{    name: "Pfeffer_Florian",
+				text: "Gleichzeitig entbrennt ein heftiger Kampf um die Kontrolle der globalen Datenströme und es droht ein Terror der totalen Transparenz."
+			},
+			{    name: "Stephen_Wolfram",
+				text: "Der technologische Fortschritt hat einen Einfluss darauf, was wir wertschätzen. Ich glaube, dass die Menschen der Zukunft sich wieder auf alte Weisheiten besinnen werden."
+			},
+			{    name: "Heinz_von_Förster",
+				text: "Handle stets so, dass weitere Möglichkeiten entstehen."
+			},
+			{    name: "Marc_Elsberg",
+				text: "Es geht längst nicht mehr nur um das Verhalten im Internet. Wir müssen zu einem emanzipierten Umgang mit Daten in allen Lebensbereichen kommen."
+			},
+			{    name: "P_Borrel",
+				text: "Es ist die Wissenschaftsgläubigkeit, die uns zu Sklaven macht."
+			},
+			{    name: "Heinz_von_Förster",
+				text: "Es gibt jetzt schon so viele Daten, dass man die ganzen Daten gar nicht mehr in seine Geschichte hineinbringen kann. Und dann werden künstliche Daten erfunden, das sind z.B. Partikel, <<Teilchen>>."
+			},
+			{    name: "mercedes_bunz",
+				text: "Überall dort, wo Information verarbeitet wird, das heißt in jedem gehobenen Beruf, werden sich bald Algorithmen in eingespielte Arbeitsteilungen einmischen – helfend, störend, blitzschnell und definitiv."
+			},
+			{    name: "Kennth_Goldsmith",
+				text: "You see, we are faced with a situation in which the managing of information has become more important than creating new and original information."
+			},
+			{    name: "Kaczynski",
+				text: "the 'bad' parts of technology cannot be separated from the 'good' parts."
+			},
+			{    name: "Brand_Stewart",
+				text: "On the one hand information wants to be expensive, because it's so valuable. The right information in the right place just changes your life."
+			},
+			{    name: "Eric_Schmidt",
+				text: "Wenn Sie etwas tun, und Sie nicht wollen, dass es jemand weiß, sollten Sie es vielleicht gar nicht erst tun."
+			},
+			{
+
+				text: "[Eric_Schmidt, Brand_Stewart, Kaczynski, Kennth_Goldsmith, mercedes_bunz, Heinz_Förster, P_Borrel, Marc_Elsberg, Stephen_Wolfram, Pfeffer_Florian, Irwin_Winkler, Karen_Carr, Cole_David, Jens_ Martin_Loebel, Marc_ Elsberg, michaeljäckel, Jochen_Homann have logged on]",
+				name: "",
+				systemMessage: true
+			},
+			{
+
+				text: "",
+				name: "YOU JOINED D A T E N E R F A S S U N G",
+				systemMessage: true
+			},
+			{    name: "Stephen_Wolfram",
+				text: "Menschen sind vorhersagbarer als die Quantenmechanik von Elementarteilchen."
+			},
+			{    name: "Marc_ Elsberg",
+				text: "Und alle, die jetzt sagen - solche Software werde ich nie verwenden – erinnere ich an ihr nie, als die ersten Computer auftauchten, die ersten Handys, Walkman, das Internet und so weiter. Heute können sie ohne diese >>Nies<< nicht mehr leben."
+			},
+			{    name: "Leif_Kramp",
+				text: "Heute sind es nicht selten die Gelehrten selbst, die Gefallen daran finden, über ihre Forschungsarbeit zu bloggen, zu twittern und in sozialen Netzwerken zu posten, zu kommentieren und zu liken."
+			},
+			{    name: "Pfeffer_Florian",
+				text: "Peer-to-Peer ist das Gestaltungsparadigma des 21. Jahrhunderts."
+			},
+			{    name: "mercedes_bunz: ",
+				text: "Dank des Internet ist die Welt zum vorher nur vielbeschworenen globalen Dorf geworden, auf dessen virtuellen Marktplätzen – Plattformen wie YouTube, Facebook oder Twitter – man nicht mehr einfach so alles Mögliche behaupten kann. Schon kommen andere aufgeweckte Geister, die auch dabei oder vor Ort gewesen sind, und alles gerade rücken."
+			},
+			{    name: "Stephen_ Wolfram",
+				text: "Wenn eine Frage von einem Experten beantwortet werden kann, dann wollen wir diese Antwort automatisieren, damit jeder von überall her auf das Wissen zugreifen kann."
+			},
+			{    name: "Leif_Kramp: ",
+				text: "Die Digitalisierung krempelt den Umgang mit neuen wissenschaftlichen Erkenntnissen völlig um. Das reicht vom eLearning bis zu der Art und Weise, wie Neues entdeckt und veröffentlicht wird. An Diskussionen, die früher unter Fachleuten stattfanden, nehmen nun große Teile der Gesellschaft teil."
+			},
+			{    name: "WalterBenjamin",
+				text: "Die Ausrichtung der Realität auf die Massen und der Massen auf sie ist ein Vorgang von unbegrenzter Tragweite sowohl für das Denken wie für die Anschauung."
+			},
+			{    name: "Jean_Baudrillard",
+				text: "We live in a world where there is more and more information, and less and less meaning."
+			},
+			{    name: "WalterBenjamin",
+				text: "Jahrhunderte lang lagen im Schrifttum die Dinge so, dass einer geringen Zahl von Schreibenden eine vieltausendfache Zahl von Lesenden gegenüberstand."
+			},
+			{    name: "FalkoBlast",
+				text: "Ein Spektakel für Massen, die nur noch immaterielle Güter konsumieren und sich weder für Bedeutungen interessieren noch interessieren können."
+			},
+			{    name: "William_Burroughs",
+				text: "After one look at this planet any visitor from outer space would say: l want to see the manager."
+			},
+			{    name: "FalkoBlast",
+				text: "Dieses ständige Sperrfeuer von Bildern hüllt alles in einen Schleier. Wir sehen nichts, wie einer, der im Smog herumgeht."
+			},
+			{
+
+				text: "[FalkoBlast, William_Burroughs, WalterBenjamin, Jean_Baudrillard, Leif_Kramp, Stephen_Wolfram, mercedes_bunz, Florian-Pfeffer, Marc_ Elsberg have logged on]",
+				name: "",
+				systemMessage: true
+			},
+			{
+
+				text: "",
+				name: "YOU JOINED M A S S E N",
+				systemMessage: true
+			},
+			{
+				name: "virillo_paul",
+				text: "Es war wiederum Bertillon, der mit einer bekannten Formulierung die Unzuverlässigkeit des menschlichen Blicks und die Irrtümer der Subjektivität kritisierte: Man sieht nur das, was man erkennt, und man erkennt nur das, was man im Kopf hat."
+			},
+			{
+				name: "Assmann_Jan",
+				text: "Wenn wir aus dem Bereich der AIItagskommunikation übergehen in den Bereich der objektivierten Kultur, dann ändert sich so gut wie alles. Der Übergang ist so grundsätzlich, dass man sich fragen muss, ob die Metapher des Gedächtnisses hier überhaupt noch angebracht ist."
+			},
+			{
+				name: "Assmann_Jan",
+				text: "Warburg verdanken wir den nachdrücklichen Hinweis auf die Kraft kultureller Objektivationen, ein kulturelles Gedächtnis zu stabilisieren, u. U. über Jahrtausende hinweg."
+			},
+			{
+				name: "Assmann_Jan",
+				text: "In kultureller Formgebung kristallisiert sich kollektive Erfahrung, deren Sinngehalt sich in der Berührung blitzartig wieder erschließen kann, über Jahrtausende hinweg. Dieses Bildgedächtnis des Abendlandes wollte Warburg mit seinem großangelegten Projekt Mnemosyne rekonstruieren."
+			},
+			{
+				name: "Assmann_Jan",
+				text: "Nicht nur ist dieses Wissen inhaltlich von Kultur zu Kultur, aber auch von Epoche zu Epoche verschieden. Auch seine Organisationsformen seine Medien und lnstitutionen sind höchst unterschiedlich."
+			},
+			{
+				name: "Aleida_Assmann",
+				text: "Im einzelnen heißt das, dass ein vorgestellter Raum so zu strukturieren ist, dass er möglichst viele Gedächtnis-Einträge mit eindeutigem Platzvermerk aufnehmen und diese auf Abruf wieder freigeben kann. So entsteht eine imaginäre Gedächtnis-Architektur, eine geistige Topographie, in der wir heimisch werden und uns in ihr so mühelos zurechtfinden sollen wie der Geldwechsler in seinen diversen Geldbeuteln."
+			},
+			{
+				name: "Aleida_Assmann",
+				text: "Es gibt immobile und mobile Räume des Gedächtnisses. Im Gegensatz zum Archiv ist die Kiste ein beweglicher und eng beschränkter Raum. Doch je knapper der Platz und begrenzter der Inhalt, desto höher steigt dieser in seinem Wert."
+			},
+			{
+				name: "virillo_paul",
+				text: "So ist es heute üblich, davon auszugehen, dass unsere Erinnerungen vieldimensional sind, dass das Denken ein Transfer ist, ein Transport (metaphora) in buchstäblichem Sinne."
+			},
+			{
+				name: "Assmann_Jan",
+				text: "Das kulturelle Gedächtnis erfährt Rekonstruktion, d.h., es bezieht sein Wissen immer auf eine aktuell gegenwärtige Situation. Es ist zwar fixiert auf unverrückbare Erinnerungsfiguren und Wissensbestände, aber jede Gegenwart setzt sich dazu in aneignende, auseinandersetzende, bewahrende und verändernde Beziehung."
+			},
+			{
+				name: "Aleida_Assmann",
+				text: "Elektronisch hochgerüstete Wissensspeicher."
+			},
+			{
+				name: "michaeljäckel",
+				text: "Das elektronische Zeitalter führt nun zu einer Erweiterung der Dokumentations- und Speichermöglichkeiten und eröffnet ganz neue Möglichkeiten der Aufbewahrung und des Transports."
+			},
+			{
+				name: "Assmann_Jan",
+				text: "Das kulturelle Gedächtnis hat seine Fixpunkte, sein Horizont wandert nicht mit dem fortschreitenden Gegenwartspunkt mit. Diese Fixpunkte sind schicksalhafte Ereignisse der Vergangenheit, deren Erinnerung durch kulturelle Formung (Texte, Riten, Denkmäler) und institutionalisierte Kommunikation (Rezitation, Begehung, Betrachtung) aktiviert wird. Wir nennen das »Erinnerungsfiguren«."
+			},
+			{
+				name: "michaeljäckel",
+				text: "An die Stelle des menschlichen Gedächtnisses treten Texte als eine Möglichkeit der Artikulation von Wissen."
+			},
+			{
+				name: "Assmann_Jan",
+				text: "Der Unterschied zwischen dem kommunikativen und dem kulturellen Gedächtnis ist nicht identisch mit dem Unterschied zwischen Mündlichkeit und Schriftlichkeit."
+			},
+			{
+				name: "Assmann_Jan",
+				text: "»Haltbare« Formung ist nicht die Sache eines Mediums, z.B. der Schrift. Auch Bilder und Riten fungieren in diesem Sinne. Man kann von sprachlicher, bildlicher und ritueller Formung reden und erhält dann die Dreiheit der griechischen Mysterien: legomenon, dromenon, deiknymenon. Was die Sprache betrifft, findet Formung lange vor der Schrifterfindung statt."
+			},
+			{
+				name: "Stephen_Wolfram",
+				text: "Für mich hat diese Feststellung noch eine andere Relevanz: Wir müssen kein künstliches Gehirn bauen, um künstliche Intelligenz zu erhalten, sondern können mit relativ einfachen Programmen anfangen."
+			},
+			{
+				name: "Stephen_Wolfram",
+				text: "Der einzige Weg, eine Entscheidung zu treffen, ist ein Rückgriff auf unsere Erfahrungen und die gemeinsame Geschichte des Lebens auf der Erde. "
+			},
+			{
+				name: "michaeljäckel",
+				text: "Für eine zunehmende Bedeutung des lnternet für das Erinnern spricht vor allem die Möglichkeit, und in diesem Falle sogar Notwendigkeit, der medialen Aufarbeitung und Speicherung von Zeitzeugenaussagen und Lebensgeschichten. Diese werden durch einen dynamischen Prozess allgemein zugänglich und virtuell erinnerbar. "
+			},
+			{
+				name: "Assmann_Jan",
+				text: "Das kulturelle Gedächtnis existiert in zwei Modi: einmal im Modus der Potentialität als Archiv, als Totalhorizont angesammelter Texte, Bilder, Handlungsmuster, und zum zweiten im Modus der Aktualität, als der von einer jeweiligen Gegenwart aus aktualisierte und perspektivierte Bestand an objektiviertem Sinn."
+			},
+			{
+				name: "sparrow_betsy",
+				text: "We are more Iikely to remember things we think are not available online. And we are better able to remember where to find something on the internet than we are at remembering the information itself."
+			},
+			{
+				name: "WalterBenjamin",
+				text: "Die Art und Weise, in der die menschliche Sinneswahrnehmung sich organisiert – das Medium, in dem sie erfolgt – ist nicht nur natürlich, sondern auch geschichtlich bedingt."
+			},
+			{
+				name: "Sherry_Turkle",
+				text: "Es scheint in der Internetforschung weitestgehend festzustehen, dass dieses neue Medium auf das wir unsere Vorstellungen und Phantasien projizieren, neue Modelle für die Funktionsweise unseres Bewusstseins bietet und dass daraus eine Veränderung der Denkweise, des Sexualitätscharakters, der Form der Gemeinschaftsbildung und vor allem der (Vorstellung von) Identität resultiert."
+			},
+			{
+
+				text: "[Sherry_Turkle, WalterBenjamin, sparrow_betsy, Assmann_Jan, michaeljäckel, Stephen_Wolfram, Aleida_Assmann, virillo_paul have logged on]",
+				name: "",
+				systemMessage: true
+			},
+			{
+
+				text: "",
+				name: "YOU JOINED G E D Ä C H T N I S",
+				systemMessage: true
+			},
+			{
+				name: "Stephen_Wolfram",
+				text: "Als Menschen und als Individuen haben wir bestimmte Zwecke oder Bestimmungen, die wir zu erreichen versuchen und die sich nicht automatisieren lassen."
+			},
+			{
+				name: "Marc_Eisberg",
+				text: "Wer programmiert sie? Nach welchen Regeln?"
+			},
+			{
+				name: "Marc_Eisberg",
+				text: "Das werden Navigationsgeräte für unser Leben, welche direkten Einfluss auf unser Handeln haben."
+			},
+			{
+				name: "Marc_Elsberg",
+				text: "Nachdem wir viele körperliche Tätigkeiten schon weitgehend automatisiert haben, automatisieren wir jetzt das Denken und Entscheiden."
+			},
+			{
+				name: "Diego_Compagna",
+				text: "Die Selbstthematisierung und die Disziplinierung des Selbst sind nicht das Ergebnis eines zum inneren Monolog angeleiteten modernen Individuums, sondern das einer über die Jahrhunderte um den je eigenen Körper kreisende Selbstthematisierung und -beherrschung."
+			},
+			{
+				name: "Welzer_Harald",
+				text: "Wie überhaupt die Zeit der Belehrungen vorbei ist: es gibt ja keine gelernten Experten für Transformation."
+			},
+			{
+				name: "Metz_Seeßlen",
+				text: "Und den Rest gleich mit, wenn es sein muss."
+			},
+			{
+				name: "Metz_Seeßlen",
+				text: "Wenn der leidende Mensch Ausdruck der Natur ist, so ist es unsere Pflicht, die Natur zu überwinden. Die des Leidenden sowohl als die des Behandelnden."
+			},
+			{
+				name: "Metz_Seeßlen",
+				text: "Offensichtlich indes gibt es einen Punkt, in dem die körperlich-technische Verstellung vom Mittel zum Zweck wird und die Vortäuschung durch solche Veränderungen nicht mehr den anderen, sondern dem Subjekt selber gilt."
+			},
+			{
+				name: "Scholten_Johannes",
+				text: "In diesem Zusammenhang kann die Soziologie deutlich machen, dass Körperverschönerung und -verbesserung nichts »Natürliches« sind und häufig auch nur vordergründig mit Selbstbestimmung zu tun haben."
+			},
+			{
+				name: "Irwin_Winkler",
+				text: "Keine Möglichkeit, dass ein Fehler passiert ist? Falsch abgelesen? Menschliches Versagen kommt ja vor."
+			},
+			{
+				name: "Scholten_Johannes",
+				text: "Der individuelle Leib muss sich an einem Ideal messen lassen, das in seiner Naturgesetzlichkeit nicht mehr hinterfragbar scheint."
+			},
+			{
+				name: "Wehling_Peter",
+				text: "Die medizinisch-technische Optimierung des Körpers kann offensichtlich zugleich individuelle Chance und unterschwellige soziale Norm sein."
+			},
+			{
+				name: "sparrow_betsy",
+				text: "Perhaps those who teach in any context, be they college professors, doctors or business leaders, will become increasingly focused on imparting greater understanding of ideas and ways of thinking and less focused on memorization and perhaps those who learn will become less occupied with facts and more engaged in larger questions of understanding."
+			},
+			{
+				name: "Marc_Elsberg",
+				text: "Bald werden Smartwatches unsere Körperfunktionen messen, andere Sensoren unseren gesamten Lebenswandel. Wir steuern auf eine „sensorierte“ Welt zu. Das klingt nicht zufällig sehr ähnlich wie „zensuriert“."
+			},
+			{
+				name: "Scholten_Johannes",
+				text: "Den Umbau des Organismus zu betreiben, um ihn zu optimieren, ist subtilere Körperlogik als ein Selbstmordanschlag, folgt aber einem ähnlichen Kalkül."
+			},
+			{
+
+				text: "[Scholten_Johannes, Marc_Elsberg, sparrow_betsy, Wehling_Peter, Irwin_Winkler, Metz_Seeßlen, Welzer_Harald, Diego_Compagna, Marc_Elsberg, Stephen_Wolfram have logged on]",
+				name: "",
+				systemMessage: true
+			},
+			{
+
+				text: "",
+				name: "YOU JOINED S E L B S T O P T I M I E R U N G",
+				systemMessage: true
+			},
+			{
+				name: "Sherry_Turkle",
+				text: "Indem Computer zu allgegenwärtigen Gegenständen in unserem täglichen Leben werden, wird sich jedem die Gelegenheit bieten, mit ihnen so zu interagieren, dass die Maschine als eine Projektion von Teilen des Selbst, als Spiegel des Denkens fungiert."
+			},
+			{
+				name: "Sherry_Turkle",
+				text: "Die Evolution des Menschen wird als Beziehung zwischen Zeit und Menschen betrachtet. Von der Uhrwerkskultur zur Computerkultur. Zweite findet außerhalb von Zeit statt."
+			},
+			{
+				name: "P_Borrel",
+				text: "Das Gehirn als Computer zu sehen bedeutet im übertragenden Sinne die Versachlichung des Einzelnen."
+			},
+			{
+				name: "M_McLuhan",
+				text: "Wie unsere Sinne außer uns getreten sind, kommt der Große Bruder hinein. Wenn wir uns dieser Dynamik nicht bewusst sind, verfallen wir plötzlich in eine Phase panischer Ängste, genau wie in einer kleinen Welt mit Stammestrommeln, totaler Abhängigkeit und überlagernder Koexistenz."
+			},
+			{
+				name: "M_McLuhan",
+				text: "Anstatt zu einer großen Alexandrinischen Bibliothek zu werden, ist die Welt zu einem Computer geworden, einem elektronischen Gehirn, genau wie kindliche Science Fiction."
+			},
+			{
+				name: "Brand_Steward",
+				text: "We value machines that mimic, enhance, accelerate thought. (We mistrust acceleration, with excellent reason). Something interesting and consequential is going on. The human frame of reference is a shift."
+			},
+			{
+				name: "Brand_Steward",
+				text: "Computers and their programs are »embodiments of mind« (Warren McCulloch). "
+			},
+			{
+				name: "Brand_Steward",
+				text: "Personal computers are skill machines."
+			},
+			{
+				name: "Bolz_Norbert",
+				text: "Der Netzcomputer präsentiert sich nicht als Hardware/Software-Paket, sondern als Kommunikationsknoten im Internet. Und der Personalized Computer, der uns für die Zukunft versprochen wird, ist kein Rechenknecht, sondern ein Diener, der die Wünsche seines Herrn kennt."
+			},
+			{
+				name: "Sherry_Turkle",
+				text: "Computer tun nicht nur Dinge für uns, sondern auch mit uns, und dies betrifft auch unsere Sicht von uns und anderen."
+			},
+			{
+				name: "Bolz_Norbert",
+				text: "Wie gestaltet man die Schnittstelle zwischen Mensch und Computer?"
+			},
+			{
+				name: "Kaczynski",
+				text: "The machines might be permitted to make all of their own decisions without human oversight, or else human control over the machines might be retained."
+			},
+			{
+				name: "Kaczynski",
+				text: "In that case presumably all work will be done by vast, highly organized systems of machines and no human effort will be necessary."
+			},
+			{
+				name: "Kaczynski",
+				text: "First let us postulate that the computer scientists succeed in developing intelligent machines that can do all things better than human beings can do them."
+			},
+			{
+				name: "P_Borrel",
+				text: "Warum sollten wir vor Computern mehr Angst haben als vor Atomenergie? Es sind Werke des Menschen und es liegt an ihm, sie gut oder schlecht einzusetzen."
+			},
+			{
+				name: "Irwin_Winkler",
+				text: "Überlegen Sie doch mal! Unsere ganze Welt ist gespeichert im Computer. Es ist alles im Computer. Es ist alles gespeichert! Kfz, Krankenakte, Kreditkartenabrechnungen etc."
+			},
+			{
+				name: "Brand_Steward",
+				text: "Computers and their programs are tools. They empower. They estrange."
+			},
+			{
+				name: "Irwin_Winkler",
+				text: "Sie kaufen sich das Programm und wiegen sich in falscher Sicherheit."
+			},
+			{
+				name: "Bolz_Norbert",
+				text: "Damit ist nicht gemeint, dass der Nutzer verstehen soll, was er tut, sondern dass man ihm jede Irritation erspart."
+			},
+			{
+				name: "Bolz_Norbert",
+				text: "Wer sich einen Computer anschafft, kauft damit nicht nur ein Stück Hardware, sondern vor allem ein Paket Software mit dem Versprechen der Benutzerfreundlichkeit."
+			},
+			{
+
+				text: "[Bolz_Norbert, Irwin_Winkler, Brand_Steward, Irwin_Winkler, P_Borrel, Kaczynski, Sherry_Turkle, M_McLuhan have logged on]",
+				name: "",
+				systemMessage: true
+			},
+			{
+
+				text: "",
+				name: "YOU JOINED C O M P U T E R",
+				systemMessage: true
+			},
+			{
+				name: "Thera_Surrogentes",
+				text: "Wir werden gerade Zeuge eines Ereignisses, das für unsere Evolution von ungeheurer Bedeutung ist."
+			},
+			{
+				name: "Schneider_friesinger",
+				text: "Unter kapitalistischen Bedingungen ist er vor allem eines: eine weitere Eskalationsstufe der (optimierten) Inwertsetzung des Menschen."
+			},
+			{
+				name: "Donna_Haraway",
+				text: "In der niemand mehr seine Verbundenheit und Nähe zu Tieren und Maschinen zu fürchten braucht und niemand mehr vor dauerhaft partiellen Identitäten und widersprüchlichen Positionen zurückschrecken muss."
+			},
+			{
+				name: "Schneider_friesinger",
+				text: "Der Cyborg ist also der aktuelle futuristische Horizont, in dem wir agieren."
+			},
+			{
+				name: "Donna_Haraway",
+				text: "Aus einer anderen Perspektive könnte die Cyborgwelt gelebte soziale und körperliche Wirklichkeiten bedeuten."
+			},
+			{
+				name: "Diego_Campagna",
+				text: "Vieles deutet darauf hin, dass wir weder Cyborgs sind noch Unschuld eingebüßt haben - stattdessen schrumpft das »komplexe Bündel von Identität« auf ein immer kleineres Format, gerade und erst recht je konfigurierter die dem Körper anhaftenden Zuordnungen erlebt werden."
+			},
+			{
+				name: "Thera_Surrogentes",
+				text: "Wenn eine passende Norm oder ein passender Code konstruiert werden kann, um Signale in einer gemeinsamen Sprache auszutauschen."
+			},
+			{
+				name: "Thera_Surrogentes",
+				text: "Ich bin überzeugt, dass sie irgendwann als ganz normale Personen wahrgenommen werden. Sie sind keine Menschen, aber dass sie ein fester Bestandteil unserer Gesellschaft werden, daran besteht für mich kein Zweifel."
+			},
+			{
+				name: "Donna_Haraway",
+				text: "Kein Objekt, Raum oder Körper ist mehr heilig und unberührbar."
+			},
+			{
+				name: "Thera_Surrogentes",
+				text: "Diese Maschinen, die überall dort draußen rumlaufen, sind eine Lüge. Ihr alle habt euch eine Lüge andrehen lassen."
+			},
+			{
+				name: "Donna_Haraway",
+				text: "Natur und Kultur werden neu definiert."
+			},
+			{
+				name: "Thera_Surrogentes",
+				text: "Sie tun alles für uns. Alles in nur einer Maschine."
+			},
+			{
+				name: "Donna_Haraway",
+				text: "Cyborgs, eine technologische Polis die zum großen Teil auf einer Revolution der sozialen Beziehungen im oikos, dem Haushalt, beruht."
+			},
+			{
+				name: "Donna_Haraway",
+				text: "Cyborgs sind nicht mehr durch die Polarität von öffentlich und privat strukturiert."
+			},
+			{
+				name: "Jana_Herwig",
+				text: "Im Web 2. 0 der Gegenwart scheitert die Utopie der Cyborgs schon daran, dass die aufgeweichten Grenzen, die Donna Haraway proklamierte, mit den Mitteln der digitalen Maschinen nicht ausgedrückt werden können."
+			},
+			{
+				name: "Thera_Surrogentes",
+				text: "Sie können vor die Tür gehen, ohne zu riskieren krank zu werden oder sich zu verletzen und werden immer gut aussehen, auch ohne Sport oder Schönheitsoperationen."
+			},
+			{
+				name: "Jens_Martin_Loebel",
+				text: "Wir quantifizieren uns, lassen Schritte und Kalorien zählen, uns in der flachsten Schlafphase am Morgen wecken. Und nehmen dabei in Kauf, dass wir dabei auch unter Dauerbeobachtung stehen. Wir sind endgültig zu Cyborgs geworden."
+			},
+			{
+				name: "Schneider_friesinger",
+				text: "Als Gattungswesen war der Mensch also schon von Anbeginn an ein »Cyborg«, eben weil er sich mit Technologie in Form von Überlebensstrategien verbunden hat, die dann noch einmal sublimiert als Kultur wiederkehrten."
+			},
+			{
+				name: "Donna_Haraway",
+				text: "Die Maschinen des späten 20. Jahrhunderts haben die Differenz von natürlich und künstlich, Körper und Geist, selbstgelenkter und außengesteuerter Entwicklung sowie viele andere Unterscheidungen, die Organismen und Maschinen zu trennen vermochten, höchst zweideutig werden lassen."
+			},
+			{
+				name: "Thera_Surrogentes",
+				text: "Jetzt sind wir die Schöpfer. Wir werden sie erschaffen."
+			},
+			{
+				name: "Stephen_Wolfram",
+				text: "Ich glaube, dass das Konzept der lrreduzibilität die Antwort auf die philosophische Debatte der letzten zweitausend Jahre ist. Philosophie ist immer ein paar Schritte vom wirklichen Leben entfernt; viele Fragen zur Natur des Menschen können daher am besten von der Wissenschaft beantwortet werden."
+			},
+			{
+				name: "Laszig_Parfen",
+				text: "Diese entkörperlichten oder die Fähigkeit steigernden Technologien lösen eine Art Verzückung und unreflektierte Faszination aus; den tiefen kindlichen Wunsch, den eigenen Körper verlassen und die (verlorene) Einheit wiederherstellen zu können."
+			},
+			{
+				name: "Stephen_Wolfram",
+				text: "Doch das ist ein lrrglaube. Deterministische Prozesse können zu sehr chaotischen Ergebnissen führen, die uns dann als zufällig erscheinen. Irreduzibilität ist ein zentraler Aspekt des Lebens: Wir können nicht auf Formeln reduziert werden, wir können uns von den deterministischen Regeln unseres Organismus lösen!"
+			},
+			{
+				name: "Irwin_Winkler",
+				text: "Da liegt dieser kleine elektronische Schatten auf jedem Einzelnen von uns und bittet darum manipuliert zu werden."
+			},
+			{
+				name: "Stephen_Wolfram",
+				text: "Lassen Sie uns zuerst über den freien Willen sprechen. Das Problem ist, dass unser Gehirn von deterministisch ablaufenden chemischen Prozessen bestimmt wird, aber dass wir gleichzeitig nicht deterministisch agieren. Dieses Paradox ist der Kern der ganzen Debatte um die Existenz eines freien Willens."
+			},
+			{
+				name: "Schneider_friesinger",
+				text: "Hier sind die Produktionsverhältnisse (von Information, Kompetenz oder Kompatibilität) als Applikationen und Enhancement-Technologien in die Subjekte selbst verlegt, die gezwungen sind, graduell mit ihnen zu verschmelzen. Ihre Zukunftsperspektive enthält keinerlei Befreiungsszenario mehr."
+			},
+			{
+				name: "The_Talos_Principle",
+				text: "Ist sie nicht, im juristischen Sinne des Wortes, eine Person, und damit ein potenzieller Bürger?"
+			},
+			{
+				name: "The_Talos_Principle",
+				text: "Wenn wir anerkennen, dass die K.I. alle Fähigkeiten des menschlichen Gehirns besitzt, sollte sie dann nicht auch als Staatsbürger gelten?"
+			},
+			{
+				name: "The_Talos_Principle",
+				text: "Sobald eine echte künstliche Intelligenz erschaffen wird, wird früher oder später die Frage der Staatsbürgerschaft gestellt werden."
+			},
+			{
+				name: "Stephen_Wolfram",
+				text: "Im Hinblick auf die Fähigkeit zur Fortpflanzung können wir Beispiele liefern, die von den meisten Menschen nicht als »lebendig« angesehen würden. Es ist sehr schwer, über Intelligenz oder Leben abstrakt nachzudenken."
+			},
+			{
+				name: "Stephen_Wolfram",
+				text: "Na ja, es gibt alle möglichen Maschinen, die sich selbst fortbewegen können - also ist das eine schlechte Definition."
+			},
+			{
+				name: "Stephen_Wolfram",
+				text: "Die antiken Griechen zum Beispiel glaubten, dass etwas lebendig ist, wenn es sich eigenständig fortbewegen kann."
+			},
+			{
+				name: "Thera_Surrogentes",
+				text: "Ich hatte eine Vision: Den Schwachen bessere Chancen zu ermöglichen. Dass Menschen wie ich wieder gehen können, etwas fühlen können, ein normales Leben führen."
+			},
+			{
+				name: "Stephen_Wolfram",
+				text: "Die antiken Griechen zum Beispiel glaubten, dass etwas lebendig ist, wenn es sich eigenständig fortbewegen kann."
+			},
+			{
+				name: "Thera_Surrogentes",
+				text: "Ich hatte eine Vision: Den Schwachen bessere Chancen zu ermöglichen. Dass Menschen wie ich wieder gehen können, etwas fühlen können, ein normales Leben führen."
+			},
+			{
+				name: "Stephen_Wolfram",
+				text: "Die antiken Griechen zum Beispiel glaubten, dass etwas lebendig ist, wenn es sich eigenständig fortbewegen kann."
+			},
+			{
+				name: "Thera_Surrogentes",
+				text: "Ich hatte eine Vision: Den Schwachen bessere Chancen zu ermöglichen. Dass Menschen wie ich wieder gehen können, etwas fühlen können, ein normales Leben führen."
+			},
+			{
+				name: "Markus_Metz",
+				text: "Die Gefahr indes, sich ohne es recht zu bemerken, an veränderte Bedingungen für das Mensch-Sein zu gewöhnen, ist erheblich."
+			},
+			{
+				name: "Markus_Metz",
+				text: "Die Gefahr, gestern Abend als Mensch eingeschlafen zu sein, um heute morgen, aus schweren Träumen womöglich, als posthumanes Wesen aufzuwachen, als Zombie, RoboMan, Android, etc., ist vergleichsweise gering."
+			},
+			{
+				name: "Thera_Surrogentes",
+				text: "Ihr könnt versuchen zu fliehen, indem ihr durch eine Puppe lebt, durch eine Maschine. Aber in eurem Inneren ist euch klar, dass es nur eine Lüge ist"
+			},
+			{
+				name: "Frank_Schneider",
+				text: "Wie können wir als Cyborgs menschlich (in einem nicht ideologischen Sinne) bleiben?"
+			},
+			{
+				name: "Donna_Haraway",
+				text: "Unsere Maschinen erscheinen auf verwirrende Weise quicklebendig – wir selbst dagegen aber beängstigend träge."
+			},
+			{
+				name: "Thera_Surrogentes",
+				text: "Sie sind schon längst tot, seit Sie sich an diese Maschinen angeschlossen haben."
+			},
+			{
+				name: "Markus_Metz",
+				text: "Die Voraussetzung für die Erzeugung oder Entstehung eines posthumanen, »anders befähigten« Menschen-nach-dem-Menschen ist die Abschaffung der Kategorie des Anderen."
+			},
+			{
+
+				text: "[Markus_Metz, Thera_Surrogentes, Donna_Haraway, Frank_Schneider, Stephen_Wolfram, The_Talos_Principle, Schneider_friesinger, Irwin_Winkler, Laszig_Parfen, Jens_ Martin_Loebel, Jana_Herwig, Diego_Campagna have logged on]",
+				name: "",
+				systemMessage: true
+			},
+			{
+
+				text: "",
+				name: "YOU JOINED C Y B O R G S",
+				systemMessage: true
+			},
+			{
+				name: "eXistenZ",
+				text: "Du, der du ins Spiel kommst, sei Gott."
+			},
+			{
+				name: "Stephen_Wolfram",
+				text: "Wir sollten also vorsichtig sein, vorschnell auf Basis unserer Erfahrungen über außerirdisches Leben zu urteilen."
+			},
+			{
+				name: "eXistenZ",
+				text: "Also wirklich William, heute fährt doch wirklich keiner mehr physisch Ski, oder kennen Sie jemanden?"
+			},
+			{
+				name: "William_Borroughs",
+				text: "How many discoveries have been made by accident? We cannot produce accidents to order. The cut-ups could add new dimension to films. Cut gambling scene in with a thousand gambling scenes all times and places."
+			},
+			{
+				name: "William_Borroughs",
+				text: "The cut-up method could be used to advantage in processing scientific data."
+			},
+			{
+				name: "eXistenZ",
+				text: "Hören Sie, ich würde unheimlich gerne eins ihrer Spiele ausprobieren, aber ich habe zu viel Angst davor, dass man in meinen Körper eindringt. "
+			},
+			{
+				name: "eXistenZ",
+				text: "Worin besteht eigentlich das Ziel dieses Spiels?"
+			},
+			{
+				name: "eXistenZ",
+				text: "Jedenfalls sehe ich für das Spiel keine Chancen auf dem Markt. Aber es ist doch ein Spiel, das bereits jeder spielt."
+			},
+			{
+				name: "Rammert_Werner",
+				text: "Virtuelle Realität bildet nicht ab, sie ist eine interaktive und immersive Modellierungswelt, eingespannt zwischen Form und Kontingenz."
+			},
+			{
+				name: "Rammert_Werner",
+				text: "Es gibt keinen Zweifel: Virtuelle Realitäten sind aufregend."
+			},
+			{
+				name: "Nic_B",
+				text: "In Games kann man sein wer oder was man will. Im Hier kannst du nur ein Mensch sein!"
+			},
+			{
+				name: "Brand_Steward",
+				text: "Spacewar dient dem Weltfrieden. Wie überhaupt alles schicke Herumspielen mit Computern und jede Beschäftigung mit Computern zu unseren ureigenen Zwecken."
+			},
+			{
+				name: "Brand_Steward",
+				text: "Es diente in erster Linie als Kommunikationsinstrument zwischen Menschen. Es erfüllte menschliche Bedürfnisse, nicht die von Maschinen."
+			},
+			{
+				name: "Brand_Steward",
+				text: "Die Hacker haben Spacewar gemacht, nicht die Planer."
+			},
+			{
+				name: "eXistenZ",
+				text: "Wie kann etwas aus dem Spiel in das reale Leben herüber wirken?"
+			},
+			{
+				name: "William_Borroughs",
+				text: "The Iosers can oftentimes become winners, and the winners can very easily become losers."
+			},
+			{
+				name: "eXistenZ",
+				text: "Es ist ein völlig neues Spielsystem. Es steckt voller Neuerungen und Entwicklungen."
+			},
+			{
+				name: "Nic_B",
+				text: "Was für das Game gilt, gilt auch fürs wahre Leben."
+			},
+			{
+				name: "William_Borroughs",
+				text: "We see them all around us: the winners and the losers. "
+			},
+			{
+				name: "William_Borroughs",
+				text: "All games are basically hostile. Winners and losers."
+			},
+			{
+				name: "William_Borroughs",
+				text: "There may be other universes based on all sorts of other principles, but ours seems to be based on war and games."
+			},
+			{
+				name: "William_Borroughs",
+				text: "This is a war universe. War all the time. That is its nature."
+			},
+			{
+				name: "eXistenZ",
+				text: "Wenn wir uns nicht mehr in dem Spiel befinden, hast du einen echten Menschen getötet."
+			},
+			{
+				name: "eXistenZ",
+				text: "Was ist, wenn wir uns nicht mehr in dem Spiel befinden? "
+			},
+			{
+				name: "eXistenZ",
+				text: "Ich weiß nicht mehr, ob das hier die Wirklichkeit ist? Vielleicht ist das hier das Spiel?"
+			},
+			{
+
+				text: "[eXistenZ, William_Borroughs, Nic_B, Brand_Steward, Rammert_Werner, Stephen_Wolfram have logged on]",
+				name: "",
+				systemMessage: true
+			},
+			{
+
+				text: "",
+				name: "YOU JOINED S P I E L",
+				systemMessage: true
+			},
+			{
+				name: "WVDDaele",
+				text: "Man muss am Ende darauf bauen, dass sie selbst dabei ein Maß und eine Mitte finden."
+			},
+			{
+				name: "Raymond_Kurzweil",
+				text: "Unser Körper dort muss nicht derselbe sein wie in unser realen Umgebung. Ein Pärchen könnte so die Körper tauschen und sich so aus der anderen Perspektive erleben."
+			},
+			{
+				name: "Diego_Campagna",
+				text: "Auch die potenzielle Körperlichkeit im Cyberspace geht mit einer umso obsessiveren Beschäftigung mit dem eigenen Körper einher."
+			},
+			{
+				name: "virilio_paul",
+				text: "Das Modell aller optischen Prothesen und Sehhilfen, das Teleskop, projiziert das Bild einer Welt, die außerhalb unserer Reichweite liegt, und somit eine andere Art und Weise, uns in der Welt zu bewegen."
+			},
+			{
+				name: "Thera_Surrogentes",
+				text: "Wir sind nicht dafür gemacht, die Welt durch eine Maschine zu erleben."
+			},
+			{
+				name: "virilio_paul",
+				text: "Logistik der Wahrnehmung führt zu einem ungeahnten Transfer des Blickes, sie schafft einen Zusammenstoß von Nahem und Fernem, ein Phänomen der Beschleunigung, das unser Bewusstsein von Entfernung und Dimension vernichtet."
+			},
+			{
+				name: "Johannes_Scholten",
+				text: "Der Körperkult bringt seinen Gegenstand zum Verschwinden, weil er ihn ausschließlich unter dem Gesichtspunkt der Funktionalität betrachtet. Das Fleisch soll zum Werkzeug des Willens geformt werden, der ihm innewohnt."
+			},
+			{
+				name: "virilio_paul",
+				text: "Mit der industriellen Verbreitung von visuellen und audiovisuellen Prothesen erlebt man von nun an eine immer stärkere Codierung von mentalen Bildern, die kaum noch gespeichert und wiederverwertet werden, einen schnellen Zusammenbruch der mnestischen Konsolidierung, der Erinnerungsfähigkeit."
+			},
+			{
+				name: "Metz_Seeßlen",
+				text: "Wenn die Hippies das Antitechnologische mit den Mitteln sauberer Supertechnologie ausdrückten, dann ist Amold Schwarzenegger der Mensch, der mit seinem eigenen Körper die relative Perfektion der posthumanen Evolution ausdrückt und zugleich sich selbst der Verwandlung widersetzt."
+			},
+			{
+				name: "Parfen_Laszig",
+				text: "Jenseits des medialen Dauerfeuers gilt es Räume zu erhalten, in denen Körper und Bewusstsein nicht gespalten werden, sondern vielmehr als »natürliche Einheit« erfahren werden können."
+			},
+			{
+				name: "eXistenZ",
+				text: "ch fühle mich so verwundbar, so entkörperlicht."
+			},
+			{
+				name: "P_Borrel",
+				text: "Ein Körper altert; kriegt Falten also gibt es den Traum vom Immateriellen, davon uns unseres Körpers zu entledigen."
+			},
+			{
+				name: "Johannes_Scholten",
+				text: "So unterschiedlich die Menschenbilder von Biotechnologen und deren Gegnern in den Details sein mögen – sie gleichen sich im normativen Charakter ihrer Körperkonzepte."
+			},
+			{
+				name: "Kaczynski",
+				text: "It is the fault of technology, because the system is guided not by ideology but by technical necessity."
+			},
+			{
+				name: "Kaczynski",
+				text: "This has nothing to de with the political or social ideology that may pretend to guide the technological system."
+			},
+			{
+				name: "Kaczynski",
+				text: "The system does not and cannot exist to satisfy human needs. Instead, it is human behavior that has to be modified to fit the needs of the system."
+			},
+			{
+				name: "WVDDaele",
+				text: "Neuro-Enhancement kann jedenfalls nicht deshalb moralisch geächtet werden, weil die Techniken, die ihm zugrunde liegen, die menschliche Natur verändern."
+			},
+			{
+				name: "WVDDaele",
+				text: "Implantate von Elektroden oder Computerchips im Gehirn sind gewiss außerordentlich „unnatürlich“. Sie sind gleichwohl zweifellos legitim, um Leiden der Betroffenen zu lindern oder abzuwehren."
+			},
+			{
+				name: "Johannes_Scholten",
+				text: "Der Organismus stellt dann nicht mehr bloß das Material, aus dem wir unsere Biographie formen; er wird aus vorfabrizierten Komponenten bestehen, die alle ihre eigene Geschichte erzählen, mit der sie dem Selbstbild des autonomen Individuums widersprechen."
+			},
+			{
+				name: "Johannes_Scholten",
+				text: "Je freier sich der Organismus umformen Iässt, desto deutlicher tritt sein Symbolwert in den Vordergrund."
+			},
+			{
+				name: "Thera_Surrogentes",
+				text: "Körperlich behinderte Menschen werden vollständig synthetische Körper steuern können. Das bedeutet eine große Hoffnung für diese Menschen."
+			},
+			{
+				name: "P_Borrel",
+				text: "Durch digitale Prothesen (Computer, Handy etc.) wird der Mensch verbessert. Diese werden zu externen Organen und schlussendlich zu einem Teil unserer Identität."
+			},
+			{
+				name: "Metz_Seeßlen",
+				text: "Mindestens so bedeutend wie seine Erscheinung sind allerdings auch die Funktionen des Körpers. Auch sie müssen, nach zwei Jahrhunderten der »bürgerlichen Gesellschaft«, neu geordnet werden und können es nicht ohne Hilfe der Maschinen und ohne Aspekte des Untodes."
+			},
+			{
+				name: "Thera_Surrogentes",
+				text: "Es ist nicht so leicht mit den eigenen Händen zu töten, wenn man keine Maschine hat, die die Drecksarbeit macht!"
+			},
+			{
+
+				text: " [Thera_Surrogentes, Metz_Seeßlen, P_Borrel, Johannes_Scholten, WVDDaele, Kaczynski, P_Borrel, eXistenZ, Parfen_Laszig, Metz_Seeßlen, virilio_paul, Diego_Campagna have logged on]",
+				name: "",
+				systemMessage: true
+			},
+			{
+
+				text: "",
+				name: "YOU JOINED K Ö R P E R",
+				systemMessage: true
+			},
+			{
+				name: "Stephen_Wolfram",
+				text: "Wir haben vor ein paar Jahren ein Experiment gemacht, bei dem wir zufällige Musiksequenzen generiert haben. Einige davon klangen gar nicht so schlecht! Ich habe von Komponisten gehört, die unsere Webseite als Inspiration benutzen – das ist genau das Gegenteil von dem, was ich erwartet hätte. Aber Ihre Frage bleibt weiterhin bestehen: Was machen wir Menschen eigentlich, wenn alles automatisch abläuft? Ich glaube, dass wir uns dann Gedanken darüber machen, was wir eigentlich machen sollten."
+			},
+			{
+				name: "Harald_Welzer",
+				text: "Werte verändern nicht die Praxis, es ist eine veränderte Praxis, die die Werte verändert."
+			},
+			{
+				name: "Parfen_Laszig",
+				text: "Im cyberianischen Zustand der Vereinzelung, per Modem und Bildschirm verbunden und gleichzeitig ab/getrennt, entsteht der Wunsch und die Sehnsucht in unsere Körper zurückzukehren, diese zu spüren, die bedrohte Grenze wieder herzustellen, um Kontrolle zurückzugewinnen."
+			},
+			{
+				name: "mercedes_bunz",
+				text: "So oder so, es sollte klar geworden sein: Gegen real-existierende Formen einer schleichenden gesellschaftlichen Personalisierung sind die Schachzüge von Amazon oder Google eher harmlos."
+			},
+			{
+				name: "Diego_Compagna",
+				text: "Die Fragmentierung der Handlungseinheit in eine Gleichzeitigkeit des 'Hier' und 'Dort' führt zu einer Auflösung/Auslöschung von Plessners apodiktischer Setzung, nämlich, dass es »Menschen« gibt."
+			},
+			{
+				name: "The_Talos_Principle",
+				text: "Wie können wir uns ohne dieses Mysterium noch von Maschinen differenzieren? Und wenn wir nur Maschinen sind, wie können wir dann hoffen, dass der Tod nicht das Ende ist?"
+			},
+			{
+				name: "Werner_Rammert",
+				text: "Die Anonymität/Pseudonymität von Kommunikation via programmierter Interfaces und die Virtualisierung von Gegenständlichkeit, Raum, Text, Bild oder Ton erzeugen einen als Krise erfahrenen Einbruch der Ferne, des Fremden, des Namenlosen."
+			},
+			{
+				name: "The_Talos_Principle",
+				text: "Wenn wir ein denkendes Wesen erschaffen können, was sagt das dann über die Seele aus?"
+			},
+			{
+				name: "Waitress",
+				text: "I guess the pictures that they were sending each other were from, like, three years ago. So he didn't even Iook the same, and he was just, like, piercings everywhere."
+			},
+			{
+				name: "Waitress",
+				text: "They met up and, like, he was just like."
+			},
+			{
+				name: "Waitress",
+				text: "l've chatted on the Internet with a couple of people. I know my friend, she actually just met a guy the other day of the Internet and he was a total weirdo."
+			},
+			{
+				name: "P_Borrel",
+				text: "Die Grenzen verschwimmen bereits zwischen Therapie und Verbesserung, Behandlung und Prävention und zwischen Bedürfnis und Begierde. Das ist der zentrale Punkt der Digitalisierung."
+			},
+			{
+				name: "Thera_Surrogentes",
+				text: "Wir opfern viele moderne Freuden und Annehmlichkeiten, um uns wahrhaft verbunden zu fühlen. Nicht mit Maschinen, sondern mit uns selbst. Das ist wahrhaftige Menschlichkeit, des gibt dem Leben eine Bedeutung."
+			},
+			{
+				name: "Cameraman",
+				text: "Download them, and make new profiles with totally different harnes, and never make friends with people who knew you. And just create a network of friends that are actually real-life friends, but you don't know them. I mean, there's a lot of that..."
+			},
+			{
+				name: "mercedes_bunz",
+				text: "Im Allgemeinen verhalten sich die Algorithmen jedoch nicht ideologischer als die Bildzeitung, zudem Iässt sich jede Personalisierung leicht mit einem Mausklick rückgängig machen: Ausloggen, erneut suchen, fertig."
+			},
+			{
+				name: "Sherry_Turkle",
+				text: "Ein Modell des Geistes als Mehrprozessorensystem Iässt uns mit einem „dezentralisierten“ Selbst zurück: Es gibt kein ,Ich', keinen einheitlichen Akteur."
+			},
+			{
+				name: "Walter_Benjamin",
+				text: "Was aber beiden in gleicher Weise entgegentrat, war ihre Einzigkeit, mit einem anderen Wort: ihre Aura."
+			},
+			{
+				name: "Marie_Schmidt",
+				text: "Persönlichkeitsspaltung war einmal eine Sache der Höflichkeit. Die authentische Persönlichkeit teilt man aber doch wieder, jetzt technisch. Man teilt sie mit, durch verschiedene Kanäle, auf den Plattformen des Sozialen Netzes. Und teilt sie damit auf in ein Twitter-Profil, eine Telefonstimme, verschiedene E-Mail-Adressen."
+			},
+			{
+				name: "Sherry_Turkle",
+				text: "Jeder von uns ist auf seine eigene Weise unvollkommen."
+			},
+			{
+				name: "catfish",
+				text: "So, a lot of the personalities that came out were just fragments of myself. Fragments of things I used to be. Wanted to be, never could be."
+			},
+			{
+				name: "Heinz_Förster",
+				text: "Sag mir, wie das Universum entstand, und ich sage dir, wer du bist."
+			},
+			{
+
+				text: " [Heinz_Förster, catfish, Sherry_Turkle, Marie_Schmidt, Walter_Benjamin, mercedes_bunz, Cameraman, Thera_Surrogentes, P_Borrel, Waitress, The_Talos_Principle, Werner_Rammert, Diego_Compagna, Parfen_Laszig, Harald_Welzer, Stephen_Wolfram have logged on]",
+				name: "",
+				systemMessage: true
+			},
+			{
+
+				text: "",
+				name: "YOU JOINED I D E N T I T Ä T",
+				systemMessage: true
+			},
+			{
+				name: "virilio_paul",
+				text: "Diese Erklärung ist keineswegs paradox, denn, wie Guillaume Apollinaire um 1913 über den Kubismus schrieb, ging es bei der Kunst vor allem darum, den Untergang der Realität bewusst zu machen."
+			},
+			{
+				name: "WalterBenjamin",
+				text: "Von diesen Gebilden ist, wie man annehmen darf, wichtiger, dass sie vorhanden sind, als dass sie gesehen werden."
+			},
+			{
+				name: "Weibel_Peter",
+				text: "Die Medienkunst kann nicht länger ihre Nähe zur elektronischen Industrie, der sie ihre Geräte verdankt, unreflektiert verdrängen."
+			},
+			{
+				name: "mercedes_bunz",
+				text: "Es gibt ein weltumspannendes, globales Netz, das verschiedenen Kulturen ermöglicht, einfach miteinander in Kontakt zu treten. Wird auf der einen Hälfte der Welt Unsinn erzählt, wird auf der anderen Hälfte der Welt dieser Unsinn dank gemeinsamer Sprache (Englisch) und miteinander verbundener Technologie schnell korrigiert."
+			},
+			{
+				name: "eXistenZ",
+				text: "Die Menschen sind darauf programmiert, sich mit Wenigem zufrieden zu geben. Dabei sind die Möglichkeiten so ungeahnt groß!"
+			},
+			{
+				name: "schneider_friesinger",
+				text: "Die Utopie des Technischen funktionierte also im Prinzip wie jene Karotte, die Eseln in Cartoons vorgebunden wird, um sie zum Laufen zu animieren."
+			},
+			{
+				name: "Harald_ Welzer",
+				text: "Insofern gründet das Wissen, das man auf dem Weg in die nachhaltige Moderne gebrauchen kann, auf anderen Voraussetzungen als auf Daten und Fakten: Es gründet sich auf Hoffnungen, Wünsche, Träume und Gefühle – und auf eine Praxis, die solche Produktivkräfte des zukünftigen ernster nimmt als alle Technik- und Machbarkeitsphantasien."
+			},
+			{
+				name: "Stephen_Wolfram",
+				text: "Lassen Sie mich etwas Verrücktes sagen: Ich bin fasziniert von Alien-Technologie. Ich will Dinge bauen, die niemand erwartet hat und die wahrscheinlich ohne mich auch nicht gebaut würden. Das finde ich spannender als die Verbesserung von Sachen, die es ohnehin schon gibt, auch wenn es etwas egoistisch klingt. Normalerweise fängt das mit einer großen Idee an und dann arbeite ich mich bis zum Knackpunkt vor, bis zum Goldklumpen im Kern dieser Idee. Das macht mir Spaß."
+			},
+			{
+				name: "WalterBenjamin",
+				text: "Die künstlerische Produktion beginnt mit Gebilden, die im Dienste des Kults stehen."
+			},
+			{
+				name: "mercedes_bunz",
+				text: "Die Digitalisierung bietet uns heute die Möglichkeit, eine andere Zukunft zu gestalten. Und aus ihr wird, was wir aus ihr machen."
+			},
+			{
+				name: "eXistenZ",
+				text: "Tod dem Realismus!"
+			},
+			{
+				name: "M_McLuhan",
+				text: "Wenn eine neue Technologie einen oder mehrere unserer Sinne in die soziale Welt ausdehnt, werden sich neue Verhältnisse zwischen allen unserer Sinne ergeben. Dies ist vergleichbar mit dem Hinzufügen einer neuen Note zu einer Melodie. Wenn sich die Verhältnisse der Sinne in irgendeiner Kultur ändern, wird das, was vorher klar war trüb werden, und was unklar oder trüb war wird durchsichtig werden."
+			},
+			{
+				name: "WalterBenjamin",
+				text: "Sie beunruhigen den Betrachter; er fühlt: zu ihnen muss er einen bestimmten Weg suchen."
+			},
+			{
+				name: "mercedes_bunz",
+				text: "Tatsächlich schafft das Netz in der Realität sogar neue kulturelle Brücken und die könnte man als so ungeheuerlich bedeutend für die Menschheit ansehen, wie die Reise zum Mond."
+			},
+			{
+				name: "Hakidemia",
+				text: "We are inviting parents and their kids for a morning of DIY bio hacking workshop. Kids will learn to extract DNA from fruits, hack a webcam to make a microscope, prepare a slide for microscopy as well as to make models of DNA molecules."
+			},
+			{
+
+				text: " [Hakidemia, WalterBenjamin, mercedes_bunz, M_McLuhan, eXistenZ, Stephen_Wolfram, Harald_ Welzer, schneider_friesinger, Weibel_Peter, virilio_paul have logged on]",
+				name: "",
+				systemMessage: true
+			},
+			{
+
+				text: "",
+				name: "YOU JOINED U T O P I E",
+				systemMessage: true
+			},
+			{
+				name: "stephan_günzel",
+				text: "Fern kann der physisch Benachbarte sein, wenn er über einen Internet-Zugang verfügt."
+			},
+			{
+				name: "Gustafsson_Lars",
+				text: "Mit kleinen Rissen, Unstimmigkeiten, einem mikroskopischen Abstand zwischen der Welt, von der man redet, und der Welt, die tatsächlich da war."
+			},
+			{
+				name: "eXistenZ",
+				text: "Ich fühle mich so losgelöst von meinem richtigen Leben. Ich verliere das Gefühl für meinen Körper. Ich fürchte, dass sich hier eine Form von Psychose entwickelt."
+			},
+			{
+				name: "dodge_martin",
+				text: "Maps have been created for all kinds of purposes, but the principal reasons are: to document where infrastructure is Iocated; to market services; to manage internet resources more effectively; to aid searching, browsing and navigating on the web; and to explore potential new interfaces to different cyberspace media."
+			},
+			{
+				name: "saskia_sassen",
+				text: "„Cybersegmentierung“ weißt darauf hin, dass sich „unterhalb“ des grenzenlosen Illusionsraums nicht nur nach wie vor ein physischer Raum befindet, sondern dass dieser durch das Internet und durch dessen Benutzung in noch radikalerer Weise geteilt wird als durch Grenzanlagen."
+			},
+			{
+				name: "barkhoff",
+				text: "In den 1990er Jahren hat die Metapher des Netzes ihre Konjunktur erlebt, die erst gegenwärtig kulturgeschichtlich eingeholt wird."
+			},
+			{
+				name: "Jay_David_Bolter",
+				text: "Die zugrundeliegende Infrastruktur des Internets ist dabei nicht unmittelbar zugänglich, sondern ist in der Nutzung nur als Beziehung zwischen den Elementen vorhanden, die an verschiedenen Orten in diesem Netz lagern und untereinander verknüpft sein können, was zunächst und zumeist als Hypertextstruktur in Erscheinung tritt."
+			},
+			{
+				name: "stephan_günzel",
+				text: "Es handelt sich damit in struktureller Hinsicht um das Gegenteil eines Ausdehnungsraums."
+			},
+			{
+				name: "stephan_günzel",
+				text: "Der Raum des Internets ist so gesehen ein rein relationaler."
+			},
+			{
+				name: "stephan_günzel",
+				text: "Es tritt eine neue mediale Raumordnung auf, die nicht mehr in metrischen Distanzen gefasst werden kann, sondern topologischer Art ist."
+			},
+			{
+				name: "eXistenZ",
+				text: "Sie gehören zu den Freunden der Realität."
+			},
+			{
+				name: "FalkoBlast",
+				text: "Für die eigentliche Realität ist kein Platz mehr."
+			},
+			{
+				name: "Förster_Heinz",
+				text: "Wo ist die Realität, wo haben Sie die?"
+			},
+			{
+				name: "FalkoBlast",
+				text: "Simulation ist die Hyperrealisierung des Realen, die sich jeder sinnhaften Interpretation entzieht."
+			},
+			{
+				name: "Jean_Baudrillard",
+				text: "Simulation is no Ionger that of a temtory, a referential being or a substance. It is the generation by models of real without origin or reality: a hyperreal."
+			},
+			{
+				name: "FalkoBlast",
+				text: "Alles ist Teil der Simulation."
+			},
+			{
+				name: "goldsmith_kenneth",
+				text: " If it doesn’t exist on the internet, it doesn’t exist."
+			},
+			{
+				name: "karen_carr",
+				text: "The one factor common to these definitions and conceptions is that they are all concerned with the simulation of human perceptual experience to create an impression of something which is not really there."
+			},
+			{
+				name: "karen_carr",
+				text: "virtual reality, considered by many to be an important development in human culture, is the achievement of the opposite: fooling people into accepting as real what is only perceived."
+			},
+			{
+				name: "eXistenz",
+				text: "Hier oben gibt es den besten Überblick, hier seht ihr den Sieg der Wirklichkeit."
+			},
+			{
+				name: "virillo_paul",
+				text: "Nach der Verarbeitung von durch Zahlencodes erzeugten Bildern bei der computergestützten Planung und Entwicklung ist nun die Zeit des synthetischen Sehens gekommen, die Zeit der Automatisierung der Wahrnehmung."
+			},
+			{
+				name: "virillo_paul",
+				text: "Man darf seinen Augen nicht mehr trauen."
+			},
+			{
+				name: "virillo_paul",
+				text: "Es geht hier im Wesentlichen um ein »Vergessen«. Der Mensch vergisst, dass er es war, der die Bilder erzeugte, um sich an ihnen in der Welt zu orientieren. Er kann sie nicht mehr entziffern und lebt von nun ab in Funktion seiner eigenen Bilder."
+			},
+			{
+				name: "vilem_flusser",
+				text: " Es ist nicht mehr möglich das Reale vom Imaginären zu unterscheiden."
+			},
+			{
+				name: "virillo_paul",
+				text: "Raum löst sich durch die Beschleunigung der Datei auf, insofern er irrelevant wird."
+			},
+			{
+				name: "dodge_martin",
+				text: "That is, they provide a generalized representation of a network, showing the correct linkages between nodes but not the exact route of the connections in relation to geographic space."
+			},
+			{
+				name: "stephan_günzel",
+				text: "So beruhen sogenannte »virtuelle Welten« sowohl auf der Vernetzung der Nutzer, als auch auf der Ansicht einer räumlichen Ausdehnung."
+			},
+			{
+				name: "stephan_günzel",
+				text: "In medialer Hinsicht ist es nur ein kleiner Schritt vom Boten über das Telegraphennetz zum Internet, da in allen Fällen die räumliche Distanz zwischen Sender und Empfänger überwunden wird. Die interne Kommunikation unterscheidet sich in räumlich-technischer Hinsicht von allen anderen dadurch, dass der genaue Weg nicht vom Sender bestimmt, sondern an den Knotenpunkten des Netzes entschieden wird."
+			},
+			{
+
+				text: " [stephan_günzel, dodge_martin, barkhoff, virillo_paul, eXistenz, karen_carr, goldsmith_kenneth, FalkoBlast, Jean_Baudrillard, Förster_Heinz, Jay_David_Bolter, anonymous, saskia_sassen, dodge_martin, Gustafsson_Lars have logged on]",
+				name: "",
+				systemMessage: true
+			},
+			{
+
+				text: "",
+				name: "YOU JOINED V I R T U A L I T Ä T",
+				systemMessage: true
+			},
+			{
+				name: "Kaczynski",
+				text: "We hope we have convinced the reader that the system cannot be reformed in such a way as to reconcile freedom with technology. The only way out is to dispense with the industrial-technological system altogether. This implies revolution, not necessarily an armed uprising, but certainly a radical and fundamental change in the nature of society."
+			},
+			{
+				name: "Pfeffer_Florian",
+				text: "Die Erfindung der Dampfmaschine hat die Massenproduktion von Serien ermöglicht. Die 2. Revolution ist die Elektrifizierung und die darauf folgende explosionsartige Verbreitung der Massenmedien."
+			},
+			{
+				name: "Welzer_Harald",
+				text: "Die bloße Analyse falscher Entwicklungen und Verhältnisse bedeutet ja an sich nichts; moralische Intelligenz möchte sie aber verändern."
+			},
+			{
+				name: "Pfeffer_Florian",
+				text: "Ein Blick aus dem Fenster genügt, um zu sehen, dass heute eine neue Revolution im Gange ist – die vernetzte, soziale und ökologische Revolution."
+			},
+			{
+				name: "mercedes_bunz",
+				text: "Die Digitalisierung hat unsere Gesellschaft in ähnlichem Maße verändert wie die Industrialisierung."
+			},
+			{
+				name: "Jan_Assmann",
+				text: "Vielmehr glaube ich, dass wir eine Epochenschwelle überschreiten, in der mindestens drei Faktoren die Konjunktur des Gedächtnisthemas begründen. Zum einen erleben wir mit den neuen elektronischen Medien externer Speicherung (und damit: des künstlichen Gedächtnisses) eine kulturelle Revolution, die an Bedeutung der Erfindung des Buchdrucks und vorher der der Schrift gleichkommt. Zum anderen, und damit zusammenhängend, verbreitet sich gegenüber unserer kulturellen Tradition eine Haltung der »Nach-Kultur«  (Georg Steiner), in der etwas Zu-Ende-Gekommenes – »Alteuropa«  nennt es Niklas Luhmann – allenfalls als Gegenstand der Erinnerung und kommentierender Aufarbeitung weiterlebt. "
+			},
+			{
+				name: "Pfeffer_Florian",
+				text: "Diese Revolution braucht weniger Symbole und mehr Substanz, weniger Produkte und mehr Werkzeuge, weniger Hardware und mehr Software."
+			},
+			{
+				name: "Kaczinsky",
+				text: "It would be better to dump the whole stinking system and take the consequences."
+			},
+			{
+				name: "Unabomber_Manifest",
+				text: "Die kontinuierliche Entwicklung der Technologie wird die Lage weiter verschlimmern."
+			},
+			{
+				name: "Kaczynski",
+				text: "But suppose new that industrial society does survive the next several decades and that the bugs do eventually get worked out of the system, so that it functions smoothly. What kind of system will it be? We will consider several possibilities."
+			},
+			{
+				name: "Pfeffer_Florian",
+				text: "Es ist klar, dass sich die Welt seit den frühen 1970er Jahren fundamental verändert hat. Heute haben wir DIY-Biolabs, Waffen aus dem 3D-Drucker, Occupy Everything, Hackermoms, Kickstarter, NSA, das Internet der Dinge, Netzaktivismus, Globalisierung, Bitcoins, die Cloud, Klimawandel, informelle Ökonomien."
+			},
+			{
+				name: "P_Borrel",
+				text: "Und wir treten in eine neue Welt, die zum größten Teil noch nicht gedacht wurde."
+			},
+			{
+				name: "Kaczynski",
+				text: "Technology is a more powerful social force than the aspiration for freedom."
+			},
+			{
+				name: "Brand_Stewart",
+				text: "A realm of intimate, personal power is developing -- power of the individual to conduct his own education, find his own inspiration, shape his own environment, and share his adventure with whoever is interested."
+			},
+			{
+				name: "Nosnibor_Christopher",
+				text: "The great skies are open. Candor of vapor and tent spitting blond laugh and drunken penance."
+			},
+			{
+				name: "Pfeffer_Florian",
+				text: "Wir befinden uns mittendrin in der Umwälzung und es ist noch nicht klar, wie die Landschaft hinterher aussehen wird."
+			},
+			{
+				name: "Schuler_Douglas",
+				text: "Once a new technology rolls over you, if you're not part of the steamroller, you're part of the road."
+			},
+			{
+
+				text: " [Schuler_Douglas, Pfeffer_Florian, Nosnibor_Christopher, Brand_Stewart, Kaczynski, P_Borrel, Pfeffer_Florian, Unabomber_Manifest, Jan_Assmann, mercedes_bunz, Welzer_Harald have logged on]",
+				name: "",
+				systemMessage: true
+			},
+			{
+
+				text: "",
+				name: "YOU JOINED R E V O L U T I O N",
+				systemMessage: true
+			}
+		]
+	};
+
+	var startDate = moment("2015-02-25 20:00", "YYYY-MM-DD HH-mm")
+	var endDate   = moment("2080-03-01 18:00",   "YYYY-MM-DD HH-mm");
+
+	// invokes itself between random delay - creates chat messages
+	var createChatMsgs = function () {
+		var now = moment();
+
+		if ((now.isAfter(startDate) && now.isBefore(endDate))) {
+			if ($scope.chat.messagesPool.length < 1) {
+				$scope.chat.messagesPool = $scope.chat.messagesUsed;
+				$scope.chat.messagesUsed = [];
+			}
+
+			var message = $scope.chat.messagesPool.pop();
+			message.date = new Date();
+			$scope.chat.messagesUsed.push(message);
+			window.scrollTo(0, document.body.scrollHeight);
+
+
+			// min and max seconds for random message generation
+			$timeout(createChatMsgs, getRandomNumber(4000, 2000));
+		} else {
+			$timeout(createChatMsgs, getRandomNumber(1000, 1000));
+		}
+	};
+
+
+	// returns a random number between max and min
+	var getRandomNumber = function (max, min) {
+		return Math.floor(Math.random() * (max - min + 1)) + min;
+	};
+
+
+	// start point
+	createChatMsgs();
+}]);
+
+</script>
